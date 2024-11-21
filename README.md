@@ -3,6 +3,8 @@
 
 # GRootR
 
+<img src="man/figures/logo.png" align="right" height="300" alt="" />
+
 ## Overview
 
 The **GRootR** package is being developed as part of the research
