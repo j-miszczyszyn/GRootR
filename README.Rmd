@@ -25,11 +25,6 @@ funded by the **Narodowe Centrum Nauki** (National Science Centre, Poland).
 
 The goal of **GRootR** is to provide tools for processing and visualizing ground-penetrating radar (GPR) data, specifically focusing on the study of tree root systems. It aims to facilitate the analysis of root variability and spatial distribution through advanced 3D visualization and statistical methods.
 
-## Project Details
-
-- **Project duration**: 11.07.2024 - 10.07.2025  
-- **Project number**: G-1447/WL/24-25  
-- **Principal investigator**: Dr inż. Luiza Tymińska-Czabańska, Faculty of Forestry, University of Agriculture in Krakow  
 
 ## Installation
 
