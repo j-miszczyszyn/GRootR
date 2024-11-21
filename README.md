@@ -1,9 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# GRootR
+<img src="man/figures/logo.png" align="center" height="300"/>
 
-<img src="man/figures/logo.png" align="right" height="300" alt="" />
+# GRootR
 
 ## Overview
 
