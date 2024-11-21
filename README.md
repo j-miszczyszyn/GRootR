@@ -1,0 +1,63 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# GRootR
+
+## Overview
+
+The **GRootR** package is being developed as part of the research
+project: **“Zastosowanie georadaru ze skanerem 3D do pomiarów zmienności
+systemów korzeniowych sosny zwyczajnej”**  
+(**“Application of Ground-Penetrating Radar with 3D Scanner for
+Measuring Variability in Scots Pine Root Systems”**)  
+funded by the **Narodowe Centrum Nauki** (National Science Centre,
+Poland).
+
+The goal of **GRootR** is to provide tools for processing and
+visualizing ground-penetrating radar (GPR) data, specifically focusing
+on the study of tree root systems. It aims to facilitate the analysis of
+root variability and spatial distribution through advanced 3D
+visualization and statistical methods.
+
+## Project Details
+
+- **Project duration**: 11.07.2024 - 10.07.2025  
+- **Project number**: G-1447/WL/24-25  
+- **Principal investigator**: Dr inż. Luiza Tymińska-Czabańska, Faculty
+  of Forestry, University of Agriculture in Krakow
+
+## Installation
+
+You can install the development version of GRootR from
+[GitHub](https://github.com/) with:
+
+    # install.packages("pak")
+    pak::pak("j-miszczyszyn/GRootR")
+
+## Roadmap
+
+Currently, the package is in its early stages of development. Planned
+features include:
+
+- Functions to import and preprocess GPR data (CSV format).
+- Tools for creating 3D visualizations of tree root systems.
+- Statistical methods for analyzing root system variability.
+
+## Example
+
+Since the package is under active development, example usage will be
+added in future updates.
+
+    # Placeholder for future examples
+
+## Contribution
+
+Contributions are welcome! Please feel free to submit issues or pull
+requests via the [GitHub
+repository](https://github.com/j-miszczyszyn/GRootR).
+
+## Acknowledgments
+
+This package is being developed with support from: - Faculty of
+Forestry, University of Agriculture in Krakow - Narodowe Centrum Nauki
+(National Science Centre, Poland)
