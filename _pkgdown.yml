@@ -1,4 +1,65 @@
-url: ~
+url: https://j-miszczyszyn.github.io/GRootR/
 template:
   bootstrap: 5
 
+reference:
+  - title: "Data Loading"
+    desc: "Import and prepare GPR root CSV data"
+    contents:
+      - load_root_csv
+      - split_survey_column
+      - convert_coordinates
+      - prepare_root_data
+
+  - title: "Segment Creation"
+    desc: "Convert root points into spatial line segments"
+    contents:
+      - points_to_sf
+      - make_segments
+      - process_single_root
+      - process_all_roots
+
+  - title: "Segment Metrics"
+    desc: "Geometric properties of individual segments"
+    contents:
+      - calc_segment_length
+      - calc_segment_azimuth
+      - calc_inclination
+      - classify_slope
+      - calc_all_segment_metrics
+
+  - title: "Tree Joining"
+    desc: "Link roots to tree stem locations"
+    contents:
+      - join_nearest_tree
+      - propagate_tree_name
+
+  - title: "Root & Tree Metrics"
+    desc: "Aggregated statistics at root and tree level"
+    contents:
+      - calc_root_length
+      - calc_tree_length
+      - assign_depth_class
+      - calc_depth_stats
+      - count_orientations
+
+  - title: "2D Polygons"
+    desc: "Root system spread polygons"
+    contents:
+      - build_convex_hulls
+      - calc_hull_area
+
+  - title: "3D Volume"
+    desc: "Bounding volume estimation"
+    contents:
+      - calc_real_z
+      - calc_range_3d
+
+  - title: "Overlap & Distance"
+    desc: "Competition and distance analysis"
+    contents:
+      - make_tree_pairs
+      - calc_pair_overlap
+      - calc_all_overlaps
+      - merge_root_segments
+      - calc_dist_to_trunk

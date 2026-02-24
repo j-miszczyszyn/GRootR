@@ -1,20 +1,39 @@
 Package: GRootR
 Title: 3D Visualization and Statistical Analysis of Tree Roots Detected with Ground Penetrating Radar
-Version: 0.0.0.9000
-Authors@R: 
+Version: 0.1.0
+Authors@R: c(
     person("Jakub", "Miszczyszyn", , "jakub.miszczyszyn@urk.edu.pl", role = c("aut", "cre"),
            comment = c(affiliation = "University of Agriculture in Krakow, Faculty of Forestry, Department of Forest Management",
                        ORCID = "0009-0002-8592-946X")),
-    person("Luiza", "Tymińska-Czabańska", , "luiza.tyminska@urk.edu.pl", role = "aut",
+    person("Luiza", "Tyminska-Czabanska", , "luiza.tyminska@urk.edu.pl", role = "aut",
            comment = c(affiliation = "University of Agriculture in Krakow, Faculty of Forestry, Department of Forest Management",
                        ORCID = "0000-0002-4921-7070"))
-Description: The GRootR package provides tools for visualizing tree root systems 
-    detected using ground-penetrating radar (GPR). It supports the transformation 
-    of GPR-generated CSV files into 3D visualizations and includes functions for 
-    basic statistical analyses of root distribution, density, and spatial arrangement. 
-    Designed for forestry researchers and soil scientists, this package helps 
-    streamline data interpretation and enhance insights into subsurface root systems.
+    )
+Description: Tools for processing and analyzing tree root system data obtained 
+    from Ground Penetrating Radar (GPR) with 3D scanning capabilities. Converts 
+    raw CSV point data into spatial line segments, calculates geometric metrics 
+    (3D length, azimuth, inclination, depth), joins roots with tree stem locations, 
+    builds 2D convex hull polygons representing root system spread, estimates 3D 
+    bounding volume, and analyzes inter-tree root overlap competition. Developed 
+    as part of the NCN-funded project "Application of Ground-Penetrating Radar 
+    with 3D Scanner for Measuring Variability in Scots Pine Root Systems".
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+URL: https://github.com/j-miszczyszyn/GRootR
+BugReports: https://github.com/j-miszczyszyn/GRootR/issues
+Imports:
+    sf,
+    dplyr,
+    zoo,
+    stringr,
+    rlang
+Suggests:
+    openxlsx,
+    ggplot2,
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
+VignetteBuilder: knitr
