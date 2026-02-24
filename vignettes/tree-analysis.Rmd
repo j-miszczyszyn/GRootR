@@ -1,0 +1,157 @@
+---
+title: "Tree-Level Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tree-Level Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Overview
+
+After building segments and joining them with tree locations, GRootR provides tools for aggregating data at the tree level: total lengths, depth profiles, 2D spread, 3D volume, and inter-tree overlap.
+
+## Per-root and per-tree lengths
+
+```{r}
+library(GRootR)
+
+# Sum of all segment lengths within one ROOT_ID
+joined <- calc_root_length(joined)
+# → adds column: total_length_root
+
+# Sum of ALL root lengths belonging to one tree
+joined <- calc_tree_length(joined)
+# → adds column: total_length_tree
+```
+
+These are attached to every segment row, so you can filter and summarize as needed.
+
+## Depth statistics
+
+```{r}
+depth <- calc_depth_stats(joined)
+```
+
+Returns one row per tree with:
+
+| Column | Description |
+|---|---|
+| `depth_max` | Deepest point reached (most negative Z) |
+| `depth_mean` | Average depth across all segment endpoints |
+| `depth_range` | Difference between shallowest and deepest points |
+
+## Orientation counts
+
+```{r}
+orient <- count_orientations(joined)
+```
+
+Returns per tree:
+
+| Column | Description |
+|---|---|
+| `n_vertical` | Segments with inclination > 45° |
+| `n_horizontal` | Segments with inclination ≤ 45° |
+
+The ratio `n_vertical / (n_vertical + n_horizontal)` indicates how much of the root system grows downward vs laterally.
+
+## 2D convex hulls
+
+The horizontal spread of a tree's root system is estimated by a convex hull polygon built from all root endpoint coordinates:
+
+```{r}
+hulls <- build_convex_hulls(joined, crs = 2178)
+hulls <- calc_hull_area(hulls)
+```
+
+Each hull has:
+
+| Column | Description |
+|---|---|
+| `area_2d` | Polygon area in m² |
+| `extent_x` | Bounding box width (X axis) |
+| `extent_y` | Bounding box height (Y axis) |
+
+These polygons can be exported as shapefiles for visualization in GIS software.
+
+## 3D bounding volume
+
+A simple volumetric estimate combining vertical range and horizontal area:
+
+```{r}
+z_range <- calc_real_z(joined)
+volume  <- calc_range_3d(z_range, hulls)
+```
+
+`real_z` is the true vertical extent per tree: `max(Z) - min(Z)`. The 3D range is then `real_z × area_2d`, giving a bounding box volume in m³.
+
+This is a **rough upper bound** — the actual root-occupied volume is smaller, but this metric is useful for comparing trees and sites.
+
+## All-in-one summary
+
+```{r}
+tree_summary <- summarise_tree_roots(joined, crs = 2178)
+
+# Returns a list:
+tree_summary$depth         # depth_max, depth_mean, depth_range per tree
+tree_summary$orientations  # n_vertical, n_horizontal per tree
+tree_summary$hulls         # sf with convex hull polygons + area
+tree_summary$volume        # real_z, area_2d, range_3d per tree
+```
+
+## Overlap / competition analysis
+
+When root systems of neighboring trees overlap, it indicates potential belowground competition for water and nutrients.
+
+```{r}
+overlaps <- calc_all_overlaps(hulls)
+```
+
+This computes pairwise intersections of all convex hull polygons and returns:
+
+| Column | Description |
+|---|---|
+| `tree_1`, `tree_2` | The two trees being compared |
+| `overlap_area` | Intersection area in m² |
+| `overlap_pct_tree1` | % of tree 1's hull covered by tree 2 |
+| `overlap_pct_tree2` | % of tree 2's hull covered by tree 1 |
+
+Only pairs with non-zero overlap are returned. The percentages are asymmetric — a small tree surrounded by a large one will show high overlap from the small tree's perspective but low from the large tree's.
+
+## Root-to-trunk distance
+
+How far does each root extend from its parent tree?
+
+```{r}
+# First, merge all segments of each root into one geometry
+merged <- merge_root_segments(joined_sf)
+
+# Then calculate distance to trunk
+merged <- calc_dist_to_trunk(merged, trees, tree_id_col = "Name")
+```
+
+`dist_to_trunk` is the minimum distance from the root geometry to the tree stem point — essentially how far the closest part of the root is from the trunk. Combined with `total_length_root`, this gives an indication of root reach vs. root complexity.
+
+## Combining everything
+
+A typical analysis table might look like:
+
+```{r}
+library(dplyr)
+
+final <- tree_summary$depth %>%
+  left_join(tree_summary$orientations) %>%
+  left_join(sf::st_drop_geometry(tree_summary$hulls)) %>%
+  left_join(tree_summary$volume)
+
+openxlsx::write.xlsx(final, "tree_root_summary.xlsx")
+```

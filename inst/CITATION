@@ -1,0 +1,11 @@
+bibentry(
+  bibtype  = "Manual",
+  title    = "GRootR: 3D Visualization and Statistical Analysis of Tree Roots Detected with Ground Penetrating Radar",
+  author   = c(
+    person("Jakub", "Miszczyszyn"),
+    person("Luiza", "Tymińska-Czabańska")
+  ),
+  year     = "2025",
+  note     = "R package version 0.1.0",
+  url      = "https://github.com/j-miszczyszyn/GRootR"
+)

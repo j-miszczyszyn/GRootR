@@ -1,0 +1,134 @@
+/* ── GRootR pkgdown theme ─────────────────────────────────── */
+/* Colors derived from the hex logo:                          */
+/*   Forest green: #2e7d32 / #388e3c                          */
+/*   Soil brown:   #5d4037 / #795548                          */
+/*   Root white:   #f5f5f5                                    */
+
+/* ── Navbar ───────────────────────────────────────────────── */
+.navbar {
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #388e3c 100%) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navbar .navbar-brand img {
+  max-height: 36px;
+}
+
+/* ── Home hero section ────────────────────────────────────── */
+.page-header {
+  background: linear-gradient(160deg, #2e7d32 0%, #1b5e20 40%, #3e2723 100%);
+  color: #ffffff;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.page-header h1,
+.page-header .lead {
+  color: #ffffff;
+}
+
+/* ── Headings ─────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  color: #1b5e20;
+}
+
+.ref-heading h2 {
+  border-bottom: 3px solid #2e7d32;
+  padding-bottom: 0.4rem;
+}
+
+/* ── Links ────────────────────────────────────────────────── */
+a {
+  color: #2e7d32;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: #1b5e20;
+}
+
+/* ── Code ─────────────────────────────────────────────────── */
+pre {
+  background-color: #fafaf5;
+  border: 1px solid #e0d8c8;
+  border-left: 4px solid #5d4037;
+  border-radius: 0.4rem;
+}
+
+code {
+  color: #5d4037;
+}
+
+/* ── Reference index cards ────────────────────────────────── */
+.section-description {
+  color: #5d4037;
+  font-style: italic;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.footer {
+  background: linear-gradient(135deg, #3e2723 0%, #5d4037 100%);
+  color: #d7ccc8;
+}
+
+.footer a {
+  color: #a5d6a7 !important;
+}
+
+.footer a:hover {
+  color: #c8e6c9 !important;
+}
+
+/* ── Article sidebar / TOC ────────────────────────────────── */
+.sidebar nav a.active {
+  border-left-color: #2e7d32 !important;
+  color: #2e7d32 !important;
+  font-weight: 600;
+}
+
+/* ── Tables ───────────────────────────────────────────────── */
+.table thead th {
+  background-color: #2e7d32;
+  color: #ffffff;
+  border-color: #1b5e20;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(46, 125, 50, 0.04);
+}
+
+/* ── Badges ───────────────────────────────────────────────── */
+.badge.bg-primary {
+  background-color: #2e7d32 !important;
+}
+
+/* ── Diagram container (for mermaid/SVG) ──────────────────── */
+.diagram-container {
+  background: #fafaf5;
+  border: 1px solid #e0d8c8;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+/* ── Dark mode adjustments ────────────────────────────────── */
+[data-bs-theme="dark"] h1,
+[data-bs-theme="dark"] h2,
+[data-bs-theme="dark"] h3 {
+  color: #a5d6a7;
+}
+
+[data-bs-theme="dark"] pre {
+  background-color: #1e1e1e;
+  border-color: #5d4037;
+}
+
+[data-bs-theme="dark"] code {
+  color: #bcaaa4;
+}
+
+[data-bs-theme="dark"] .table thead th {
+  background-color: #1b5e20;
+}

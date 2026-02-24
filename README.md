@@ -3,6 +3,9 @@
 # GRootR <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/j-miszczyszyn/GRootR/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/j-miszczyszyn/GRootR/actions/workflows/R-CMD-check.yml)
+[![pkgdown](https://github.com/j-miszczyszyn/GRootR/actions/workflows/pkgdown.yml/badge.svg)](https://j-miszczyszyn.github.io/GRootR/)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 ## Overview
@@ -12,6 +15,8 @@ The **GRootR** package provides tools for processing and analyzing tree root sys
 Developed as part of the NCN-funded project:
 **"Zastosowanie georadaru ze skanerem 3D do pomiarów zmienności systemów korzeniowych sosny zwyczajnej"**
 (**"Application of Ground-Penetrating Radar with 3D Scanner for Measuring Variability in Scots Pine Root Systems"**)
+
+![GRootR Pipeline](man/figures/pipeline.svg)
 
 ## Installation
 
