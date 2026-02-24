@@ -20,7 +20,8 @@ split_survey_column(
 
 \item{sep}{Separator string. Default \code{"_"}.}
 
-\item{plot_position}{Which part (after split) contains the plot ID. Default \code{4}.}
+\item{plot_position}{Which part (after split) contains the plot ID.
+Default \code{4}.}
 
 \item{plot_name}{Name for the new plot column. Default \code{"PLOT_ID"}.}
 
@@ -31,5 +32,7 @@ A data.frame with a new plot column.
 }
 \description{
 Splits a composite survey/filename column into parts by a separator
-and extracts the plot identifier.
+and extracts the plot identifier. The default format from GPR software
+is e.g. \code{"Survey_2024.10.29_001_A_converted"} where the plot ID
+is the 4th part (here: \code{"A"}).
 }

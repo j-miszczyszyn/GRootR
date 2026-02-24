@@ -2,21 +2,52 @@
 % Please edit documentation in R/load.R
 \name{load_root_csv}
 \alias{load_root_csv}
-\title{Load root CSV file}
+\title{Load GPR root CSV file}
 \usage{
-load_root_csv(path, sep = ";", root_id_col = "ROOT_ID")
+load_root_csv(
+  path,
+  sep = ",",
+  skip = 1,
+  root_id_col = "N.",
+  root_id_name = "ROOT_ID"
+)
 }
 \arguments{
 \item{path}{Path to CSV file.}
 
-\item{sep}{Column separator. Default \code{";"} (csv2 format).}
+\item{sep}{Column separator. Default \code{","}.}
 
-\item{root_id_col}{Name of the root identifier column. Default \code{"ROOT_ID"}.}
+\item{skip}{Number of header rows to skip before column names.
+Default \code{1} (skips the CRS metadata row).}
+
+\item{root_id_col}{Name of the root identifier column. Default \code{"N."}.}
+
+\item{root_id_name}{New name for the root ID column. Default \code{"ROOT_ID"}.}
 }
 \value{
-A data.frame with filled ROOT_ID.
+A data.frame with a filled \code{ROOT_ID} column (integer).
 }
 \description{
-Reads a CSV file with root point data and fills missing ROOT_ID values
-using last observation carried forward.
+Reads a CSV file exported from GPR processing software. The file typically
+has a metadata header row (e.g., Spatial Reference System info) followed
+by column names and data. The root identifier column (\code{N.} by default)
+is only filled in the first row of each root — subsequent rows are empty.
+This function fills those gaps using last observation carried forward.
 }
+\section{Raw CSV structure}{
+
+A typical GPR export CSV looks like:
+\preformatted{
+Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,...
+N.,Type,Name,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
+1,Pipe,Feature 0010,...,node1,7394244.316,5578579.578,0.202,-0.202,...
+,,,,,...,node2,7394245.057,5578579.786,0.202,-0.202,...
+,,,,,...,node3,7394245.455,5578580.134,0.202,-0.202,...
+2,Pipe,Feature 0011,...,node1,7394244.185,5578580.438,0.202,-0.202,...
+}
+
+The first row contains CRS metadata (skipped via \code{skip}). The \code{N.} column
+identifies each root but is only populated in the first node row —
+continuation rows are empty/NA.
+}
+

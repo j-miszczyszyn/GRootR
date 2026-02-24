@@ -6,10 +6,12 @@
 \usage{
 prepare_root_data(
   path,
-  sep = ";",
-  x_col = "X.SRS.units.",
-  y_col = "Y.SRS.units.",
-  z_col = "Depth.m.",
+  sep = ",",
+  skip = 1,
+  root_id_col = "N.",
+  x_col = "X[SRS units]",
+  y_col = "Y[SRS units]",
+  z_col = "Depth[m]",
   negate_z = TRUE,
   survey_col = "Survey",
   plot_position = 4
@@ -18,7 +20,12 @@ prepare_root_data(
 \arguments{
 \item{path}{Path to CSV file.}
 
-\item{sep}{CSV separator. Default \code{";"}.}
+\item{sep}{CSV separator. Default \code{","}.}
+
+\item{skip}{Number of header rows to skip. Default \code{1} (CRS metadata row).}
+
+\item{root_id_col}{Name of the root identifier column in raw CSV.
+Default \code{"N."}.}
 
 \item{x_col, y_col, z_col}{Names of coordinate columns.}
 
@@ -32,6 +39,6 @@ prepare_root_data(
 A cleaned data.frame ready for segment processing.
 }
 \description{
-Convenience wrapper that loads a CSV, fills ROOT_IDs, optionally splits
-the survey column, and converts coordinates.
+Convenience wrapper that loads a GPR export CSV, fills ROOT_IDs,
+optionally splits the survey column, and converts coordinates.
 }

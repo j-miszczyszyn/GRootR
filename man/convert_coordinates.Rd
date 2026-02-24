@@ -6,9 +6,9 @@
 \usage{
 convert_coordinates(
   df,
-  x_col = "X.SRS.units.",
-  y_col = "Y.SRS.units.",
-  z_col = "Depth.m.",
+  x_col = "X[SRS units]",
+  y_col = "Y[SRS units]",
+  z_col = "Depth[m]",
   negate_z = TRUE,
   drop_original = TRUE
 )
@@ -16,11 +16,11 @@ convert_coordinates(
 \arguments{
 \item{df}{A data.frame.}
 
-\item{x_col}{Name of the X coordinate column.}
+\item{x_col}{Name of the X coordinate column. Default \code{"X[SRS units]"}.}
 
-\item{y_col}{Name of the Y coordinate column.}
+\item{y_col}{Name of the Y coordinate column. Default \code{"Y[SRS units]"}.}
 
-\item{z_col}{Name of the depth column.}
+\item{z_col}{Name of the depth column. Default \code{"Depth[m]"}.}
 
 \item{negate_z}{Negate depth values? Default \code{TRUE} (depth becomes negative).}
 
@@ -31,5 +31,9 @@ A data.frame with numeric \code{X}, \code{Y}, \code{Z} columns.
 }
 \description{
 Converts X, Y, Z (depth) columns to numeric values. Depth is negated
-so that below-surface values are negative.
+by default so that below-surface values become negative Z coordinates.
+}
+\details{
+The default column names match the GPR export format:
+\verb{X[SRS units]}, \verb{Y[SRS units]}, \code{Depth[m]}.
 }

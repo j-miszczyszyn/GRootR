@@ -1,33 +1,61 @@
 #' @title Load and Prepare Root Data
-#' @description Functions for loading raw GPR root CSV data and preparing
+#' @description Functions for loading raw GPR root CSV data exported from
+#'   software like ImpulseRadar, REFLEXW, or GPR-SLICE and preparing
 #'   it for spatial analysis.
 #' @name load
 NULL
 
-#' Load root CSV file
+#' Load GPR root CSV file
 #'
-#' Reads a CSV file with root point data and fills missing ROOT_ID values
-#' using last observation carried forward.
+#' Reads a CSV file exported from GPR processing software. The file typically
+#' has a metadata header row (e.g., Spatial Reference System info) followed
+#' by column names and data. The root identifier column (`N.` by default)
+#' is only filled in the first row of each root — subsequent rows are empty.
+#' This function fills those gaps using last observation carried forward.
+#'
+#' @section Raw CSV structure:
+#' A typical GPR export CSV looks like:
+#' \preformatted{
+#' Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,...
+#' N.,Type,Name,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
+#' 1,Pipe,Feature 0010,...,node1,7394244.316,5578579.578,0.202,-0.202,...
+#' ,,,,,...,node2,7394245.057,5578579.786,0.202,-0.202,...
+#' ,,,,,...,node3,7394245.455,5578580.134,0.202,-0.202,...
+#' 2,Pipe,Feature 0011,...,node1,7394244.185,5578580.438,0.202,-0.202,...
+#' }
+#'
+#' The first row contains CRS metadata (skipped via `skip`). The `N.` column
+#' identifies each root but is only populated in the first node row —
+#' continuation rows are empty/NA.
 #'
 #' @param path Path to CSV file.
-#' @param sep Column separator. Default `";"` (csv2 format).
-#' @param root_id_col Name of the root identifier column. Default `"ROOT_ID"`.
+#' @param sep Column separator. Default `","`.
+#' @param skip Number of header rows to skip before column names.
+#'   Default `1` (skips the CRS metadata row).
+#' @param root_id_col Name of the root identifier column. Default `"N."`.
+#' @param root_id_name New name for the root ID column. Default `"ROOT_ID"`.
 #'
-#' @return A data.frame with filled ROOT_ID.
+#' @return A data.frame with a filled `ROOT_ID` column (integer).
 #' @export
-load_root_csv <- function(path, sep = ";", root_id_col = "ROOT_ID") {
-  if (sep == ";") {
-    df <- utils::read.csv2(path, stringsAsFactors = FALSE)
-  } else {
-    df <- utils::read.csv(path, sep = sep, stringsAsFactors = FALSE)
-  }
+load_root_csv <- function(path, sep = ",", skip = 1,
+                          root_id_col = "N.",
+                          root_id_name = "ROOT_ID") {
+  df <- utils::read.csv(path, sep = sep, skip = skip,
+                        stringsAsFactors = FALSE,
+                        check.names = FALSE)
 
   if (!root_id_col %in% names(df)) {
-    stop(paste0("Column '", root_id_col, "' not found in CSV."))
+    stop(paste0("Column '", root_id_col, "' not found in CSV. ",
+                "Available columns: ", paste(names(df), collapse = ", ")))
   }
 
-  df[[root_id_col]] <- as.integer(df[[root_id_col]])
-  df[[root_id_col]] <- zoo::na.locf(df[[root_id_col]], na.rm = FALSE, fromLast = FALSE)
+  # Rename to ROOT_ID
+  names(df)[names(df) == root_id_col] <- root_id_name
+
+  # Fill forward
+  df[[root_id_name]] <- as.integer(df[[root_id_name]])
+  df[[root_id_name]] <- zoo::na.locf(df[[root_id_name]],
+                                     na.rm = FALSE, fromLast = FALSE)
 
   df
 }
@@ -35,12 +63,15 @@ load_root_csv <- function(path, sep = ";", root_id_col = "ROOT_ID") {
 #' Split survey column
 #'
 #' Splits a composite survey/filename column into parts by a separator
-#' and extracts the plot identifier.
+#' and extracts the plot identifier. The default format from GPR software
+#' is e.g. `"Survey_2024.10.29_001_A_converted"` where the plot ID
+#' is the 4th part (here: `"A"`).
 #'
 #' @param df A data.frame.
 #' @param survey_col Name of the column to split. Default `"Survey"`.
 #' @param sep Separator string. Default `"_"`.
-#' @param plot_position Which part (after split) contains the plot ID. Default `4`.
+#' @param plot_position Which part (after split) contains the plot ID.
+#'   Default `4`.
 #' @param plot_name Name for the new plot column. Default `"PLOT_ID"`.
 #' @param drop_original Drop the original survey column? Default `TRUE`.
 #'
@@ -68,25 +99,29 @@ split_survey_column <- function(df, survey_col = "Survey", sep = "_",
 #' Convert coordinate columns to numeric
 #'
 #' Converts X, Y, Z (depth) columns to numeric values. Depth is negated
-#' so that below-surface values are negative.
+#' by default so that below-surface values become negative Z coordinates.
+#'
+#' The default column names match the GPR export format:
+#' `X[SRS units]`, `Y[SRS units]`, `Depth[m]`.
 #'
 #' @param df A data.frame.
-#' @param x_col Name of the X coordinate column.
-#' @param y_col Name of the Y coordinate column.
-#' @param z_col Name of the depth column.
+#' @param x_col Name of the X coordinate column. Default `"X[SRS units]"`.
+#' @param y_col Name of the Y coordinate column. Default `"Y[SRS units]"`.
+#' @param z_col Name of the depth column. Default `"Depth[m]"`.
 #' @param negate_z Negate depth values? Default `TRUE` (depth becomes negative).
 #' @param drop_original Drop original columns after conversion? Default `TRUE`.
 #'
 #' @return A data.frame with numeric `X`, `Y`, `Z` columns.
 #' @export
-convert_coordinates <- function(df, x_col = "X.SRS.units.",
-                                y_col = "Y.SRS.units.",
-                                z_col = "Depth.m.",
+convert_coordinates <- function(df, x_col = "X[SRS units]",
+                                y_col = "Y[SRS units]",
+                                z_col = "Depth[m]",
                                 negate_z = TRUE,
                                 drop_original = TRUE) {
   for (col in c(x_col, y_col, z_col)) {
     if (!col %in% names(df)) {
-      stop(paste0("Column '", col, "' not found."))
+      stop(paste0("Column '", col, "' not found. ",
+                  "Available columns: ", paste(names(df), collapse = ", ")))
     }
   }
 

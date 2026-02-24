@@ -6,11 +6,14 @@ NULL
 
 #' Load and prepare root data from CSV
 #'
-#' Convenience wrapper that loads a CSV, fills ROOT_IDs, optionally splits
-#' the survey column, and converts coordinates.
+#' Convenience wrapper that loads a GPR export CSV, fills ROOT_IDs,
+#' optionally splits the survey column, and converts coordinates.
 #'
 #' @param path Path to CSV file.
-#' @param sep CSV separator. Default `";"`.
+#' @param sep CSV separator. Default `","`.
+#' @param skip Number of header rows to skip. Default `1` (CRS metadata row).
+#' @param root_id_col Name of the root identifier column in raw CSV.
+#'   Default `"N."`.
 #' @param x_col,y_col,z_col Names of coordinate columns.
 #' @param negate_z Negate Z values? Default `TRUE`.
 #' @param survey_col Name of survey column to split, or `NULL` to skip.
@@ -18,14 +21,16 @@ NULL
 #'
 #' @return A cleaned data.frame ready for segment processing.
 #' @export
-prepare_root_data <- function(path, sep = ";",
-                              x_col = "X.SRS.units.",
-                              y_col = "Y.SRS.units.",
-                              z_col = "Depth.m.",
+prepare_root_data <- function(path, sep = ",", skip = 1,
+                              root_id_col = "N.",
+                              x_col = "X[SRS units]",
+                              y_col = "Y[SRS units]",
+                              z_col = "Depth[m]",
                               negate_z = TRUE,
                               survey_col = "Survey",
                               plot_position = 4) {
-  df <- load_root_csv(path, sep = sep)
+  df <- load_root_csv(path, sep = sep, skip = skip,
+                      root_id_col = root_id_col)
 
   if (!is.null(survey_col) && survey_col %in% names(df)) {
     df <- split_survey_column(df, survey_col = survey_col,
