@@ -59,6 +59,7 @@ korzeniowych sosny zwyczajnej)
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://j-miszczyszyn.github.io/GRootR/}
   \item \url{https://github.com/j-miszczyszyn/GRootR}
   \item Report bugs at \url{https://github.com/j-miszczyszyn/GRootR/issues}
 }

@@ -48,4 +48,16 @@
 #'
 #' @docType package
 #' @name GRootR-package
+#'
+#' @importFrom sf st_as_sf st_join st_crs st_transform st_coordinates
+#'   st_drop_geometry st_sfc st_linestring st_multipoint st_convex_hull
+#'   st_area st_bbox st_intersection st_is_empty st_distance st_union
+#'   st_is_within_distance st_point st_geometry
+#' @importFrom dplyr left_join lead last group_by summarise case_when
+#'   ungroup filter mutate
+#' @importFrom zoo na.locf
+#' @importFrom stringr str_extract
+#' @importFrom rlang .data
+#' @importFrom stats aggregate as.formula
+#' @importFrom utils combn read.csv
 "_PACKAGE"

@@ -19,9 +19,9 @@ calc_real_z <- function(df, tree_id_col = "TREE_ID") {
     dplyr::summarise(
       z_min  = min(c(.data$pZ, .data$kZ), na.rm = TRUE),
       z_max  = max(c(.data$pZ, .data$kZ), na.rm = TRUE),
-      real_z = .data$z_max - .data$z_min,
       .groups = "drop"
-    )
+    ) |>
+    dplyr::mutate(real_z = .data$z_max - .data$z_min)
 }
 
 #' Calculate 3D bounding volume

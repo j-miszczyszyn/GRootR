@@ -57,11 +57,9 @@ propagate_tree_name <- function(joined, tree_id_col = "TREE_ID") {
   lookup <- lookup[!is.na(lookup[[tree_id_col]]) & lookup[[tree_id_col]] != "", ]
   lookup <- unique(lookup)
 
-  # Remove tree_id from joined to avoid duplicates
+  # Remove tree_id column, then rejoin — sf left_join preserves geometry
   joined[[tree_id_col]] <- NULL
-
-  # Rejoin
-  joined <- dplyr::left_join(sf::st_drop_geometry(joined), lookup, by = "ROOT_ID")
+  joined <- dplyr::left_join(joined, lookup, by = "ROOT_ID")
 
   # Keep only roots that matched a tree
   joined <- joined[!is.na(joined[[tree_id_col]]), ]

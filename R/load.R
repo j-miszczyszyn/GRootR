@@ -52,8 +52,10 @@ load_root_csv <- function(path, sep = ",", skip = 1,
   # Rename to ROOT_ID
   names(df)[names(df) == root_id_col] <- root_id_name
 
+  # Convert to integer (suppress warning from empty string coercion)
+  df[[root_id_name]] <- suppressWarnings(as.integer(df[[root_id_name]]))
+
   # Fill forward
-  df[[root_id_name]] <- as.integer(df[[root_id_name]])
   df[[root_id_name]] <- zoo::na.locf(df[[root_id_name]],
                                      na.rm = FALSE, fromLast = FALSE)
 
