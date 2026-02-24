@@ -73,6 +73,8 @@ pomiarow zmiennosci systemow korzeniowych sosny zwyczajnej)
 
 Useful links:
 
+- <https://j-miszczyszyn.github.io/GRootR/>
+
 - <https://github.com/j-miszczyszyn/GRootR>
 
 - Report bugs at <https://github.com/j-miszczyszyn/GRootR/issues>
