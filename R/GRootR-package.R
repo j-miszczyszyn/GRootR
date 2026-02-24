@@ -21,7 +21,7 @@
 #' The structure looks like:
 #' \preformatted{
 #' Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,...
-#' N.,Type,Name,...,Node,X[SRS units],Y[SRS units],Depth[m],...,Survey,...
+#' N.,Type,Name,...,Node,`X[SRS units]`,`Y[SRS units]`,`Depth[m]`,...,Survey,...
 #' 1,Pipe,Feature 0010,...,node1,7394244.316,5578579.578,0.202,...
 #' ,,,,,...,node2,7394245.057,5578579.786,0.202,...
 #' 2,Pipe,Feature 0011,...,node1,7394244.185,5578580.438,0.202,...
@@ -31,8 +31,8 @@
 #' \describe{
 #'   \item{N.}{Root identifier (integer). Only filled in the first node row of each root — continuation rows are empty.}
 #'   \item{Node}{Node label within root (e.g., "node1", "node2"). Used for ordering.}
-#'   \item{X[SRS units], Y[SRS units]}{Coordinates in a projected CRS.}
-#'   \item{Depth[m]}{Depth below surface (positive = below ground).}
+#'   \item{`X[SRS units]`, `Y[SRS units]`}{Coordinates in a projected CRS.}
+#'   \item{`Depth[m]`}{Depth below surface (positive = below ground).}
 #'   \item{Survey}{Composite string with date, number, plot ID, etc.}
 #' }
 #'

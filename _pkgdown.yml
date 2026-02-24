@@ -1,4 +1,161 @@
 url: https://j-miszczyszyn.github.io/GRootR/
+
 template:
   bootstrap: 5
+  light-switch: true
+  bslib:
+    bg: "#ffffff"
+    fg: "#1a1a1a"
+    primary: "#2e7d32"
+    secondary: "#5d4037"
+    base_font: {google: "Source Sans Pro"}
+    heading_font: {google: "Source Sans Pro"}
+    code_font: {google: "Fira Code"}
+  includes:
+    in_header: |
+      <link rel="icon" type="image/png" href="favicon.png">
 
+home:
+  title: "GRootR — Root System Analysis from GPR Data"
+  description: >
+    R package for processing Ground Penetrating Radar data into spatial
+    root system metrics: segments, lengths, depths, 2D/3D morphology,
+    and inter-tree competition analysis.
+  sidebar:
+    structure: [links, license, community, authors, dev, citation]
+    components:
+      citation:
+        title: Citation
+        text: |
+          Miszczyszyn, J., Tymińska-Czabańska, L. (2025).
+          GRootR: 3D Visualization and Statistical Analysis of
+          Tree Roots Detected with Ground Penetrating Radar.
+          R package. https://j-miszczyszyn.github.io/GRootR/
+
+navbar:
+  bg: dark
+  type: dark
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    intro:
+      text: Get Started
+      href: articles/getting-started.html
+    articles:
+      text: Articles
+      menu:
+        - text: "Getting Started"
+          href: articles/getting-started.html
+        - text: "---"
+        - text: "Data Format & Import"
+          href: articles/data-format.html
+        - text: "Segment Metrics Explained"
+          href: articles/segment-metrics.html
+        - text: "Tree-Level Analysis"
+          href: articles/tree-analysis.html
+    github:
+      icon: fab fa-github
+      href: https://github.com/j-miszczyszyn/GRootR
+      aria-label: GitHub
+
+footer:
+  structure:
+    left: developed_by
+    right: built_with
+  components:
+    developed_by: >
+      Developed by [Jakub Miszczyszyn](https://miszczyszyn.org) &
+      [Luiza Tymińska-Czabańska](https://orcid.org/0000-0002-4921-7070)
+      at the Faculty of Forestry, University of Agriculture in Krakow.
+      Funded by NCN (National Science Centre, Poland).
+
+reference:
+  - title: "Loading & Preparation"
+    desc: "Import raw GPR root CSV data and prepare coordinates."
+    contents:
+      - load
+      - load_root_csv
+      - split_survey_column
+      - convert_coordinates
+      - prepare_root_data
+
+  - title: "Segment Creation"
+    desc: "Convert root node points into spatial line segments."
+    contents:
+      - segments
+      - points_to_sf
+      - make_segments
+      - process_single_root
+      - process_all_roots
+
+  - title: "Segment Metrics"
+    desc: "Calculate geometric properties for each root segment."
+    contents:
+      - segment_metrics
+      - calc_segment_length
+      - calc_segment_azimuth
+      - calc_inclination
+      - classify_slope
+      - calc_all_segment_metrics
+
+  - title: "Tree Joining"
+    desc: "Link root segments to tree stem positions."
+    contents:
+      - trees
+      - join_nearest_tree
+      - propagate_tree_name
+
+  - title: "Root & Tree Metrics"
+    desc: "Aggregate segment data at root and tree level."
+    contents:
+      - root_metrics
+      - calc_root_length
+      - calc_tree_length
+      - assign_depth_class
+      - calc_depth_stats
+      - count_orientations
+
+  - title: "2D Polygons"
+    desc: "Convex hull polygons representing root system spread."
+    contents:
+      - polygons
+      - build_convex_hulls
+      - calc_hull_area
+
+  - title: "3D Volume"
+    desc: "Estimate 3D bounding volume of root systems."
+    contents:
+      - volume
+      - calc_real_z
+      - calc_range_3d
+
+  - title: "Overlap & Distance"
+    desc: "Inter-tree competition and root-to-trunk distances."
+    contents:
+      - overlap
+      - make_tree_pairs
+      - calc_pair_overlap
+      - calc_all_overlaps
+      - distance
+      - merge_root_segments
+      - calc_dist_to_trunk
+
+  - title: "Pipeline Wrappers"
+    desc: "Convenience functions chaining multiple steps."
+    contents:
+      - pipeline
+      - build_segments_with_metrics
+      - summarise_tree_roots
+      - GRootR-package
+
+articles:
+  - title: "Introduction"
+    navbar: ~
+    contents:
+      - getting-started
+  - title: "Detailed Guides"
+    contents:
+      - data-format
+      - segment-metrics
+      - tree-analysis
