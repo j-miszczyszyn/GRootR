@@ -1,17 +1,19 @@
 # Load and prepare root data from CSV
 
-Convenience wrapper that loads a CSV, fills ROOT_IDs, optionally splits
-the survey column, and converts coordinates.
+Convenience wrapper that loads a GPR export CSV, fills ROOT_IDs,
+optionally splits the survey column, and converts coordinates.
 
 ## Usage
 
 ``` r
 prepare_root_data(
   path,
-  sep = ";",
-  x_col = "X.SRS.units.",
-  y_col = "Y.SRS.units.",
-  z_col = "Depth.m.",
+  sep = ",",
+  skip = 1,
+  root_id_col = "N.",
+  x_col = "X[SRS units]",
+  y_col = "Y[SRS units]",
+  z_col = "Depth[m]",
   negate_z = TRUE,
   survey_col = "Survey",
   plot_position = 4
@@ -26,7 +28,15 @@ prepare_root_data(
 
 - sep:
 
-  CSV separator. Default `";"`.
+  CSV separator. Default `","`.
+
+- skip:
+
+  Number of header rows to skip. Default `1` (CRS metadata row).
+
+- root_id_col:
+
+  Name of the root identifier column in raw CSV. Default `"N."`.
 
 - x_col, y_col, z_col:
 

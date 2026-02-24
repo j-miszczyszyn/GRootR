@@ -6,18 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Data Format &amp; Import • GRootR</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Data Format &amp; Import">
+<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GRootR</a>
 
@@ -30,12 +38,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Get Started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/data-format.html">Data Format &amp; Import</a></li>
-    <li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started with GRootR</a></li>
+<li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/data-format.html">Data Format &amp; Import</a></li>
     <li><a class="dropdown-item" href="../articles/segment-metrics.html">Segment Metrics Explained</a></li>
     <li><a class="dropdown-item" href="../articles/tree-analysis.html">Tree-Level Analysis</a></li>
   </ul>
@@ -46,7 +56,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/j-miszczyszyn/GRootR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/j-miszczyszyn/GRootR" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -69,11 +79,27 @@
     
     
 <div class="section level2">
-<h2 id="expected-csv-structure">Expected CSV structure<a class="anchor" aria-label="anchor" href="#expected-csv-structure"></a>
+<h2 id="raw-csv-from-gpr-software">Raw CSV from GPR software<a class="anchor" aria-label="anchor" href="#raw-csv-from-gpr-software"></a>
 </h2>
-<p>GRootR expects a CSV file exported from GPR processing software
-(e.g., REFLEXW, GPR-SLICE, or similar). Each row represents a single
-node (point) along a detected root, with the following columns:</p>
+<p>GRootR reads CSV files <strong>directly exported</strong> from GPR
+processing software (e.g., ImpulseRadar, REFLEXW, GPR-SLICE). No manual
+preprocessing is required.</p>
+<p>A typical export looks like this:</p>
+<pre><code>Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,,,,,,,,,,,,,,,,,,,,
+N.,Type,Name,Category,"Colour[r,g,b]",Diameter/Height[m],Min Depth[m],Avg Depth[m],Max Depth[m],Min Altitude[m],Avg Altitude[m],Max Altitude[m],Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,Swath,Array,Channel,Propagation Velocity[cm/ns],Cross Distance[m]
+1,Pipe,Feature 0010,Generic,"170, 85, 0",0.050,0.202,0.202,0.202,-0.202,-0.202,-0.202,node1,7394244.316,5578579.578,0.202,-0.202,Survey_2024.10.29_001_A_converted,Swath003,600 VV,0,16.877,3.505,
+,,,,,,,,,,,,node2,7394245.057,5578579.786,0.202,-0.202,Survey_2024.10.29_001_A_converted,Swath003,600 VV,3,16.877,2.739,
+,,,,,,,,,,,,node3,7394245.455,5578580.134,0.202,-0.202,Survey_2024.10.29_001_A_converted,Swath003,600 VV,10,16.877,2.296,
+2,Pipe,Feature 0011,Generic,"170, 85, 0",0.050,0.202,0.202,0.202,-0.202,-0.202,-0.202,node1,7394244.185,5578580.438,0.202,-0.202,Survey_2024.10.29_001_A_converted,Swath003,600 VV,20,16.877,3.545,
+,,,,,,,,,,,,node2,7394244.656,5578580.969,0.202,-0.202,Survey_2024.10.29_001_A_converted,Swath005,600 VV,8,16.877,2.981,</code></pre>
+<div class="section level3">
+<h3 id="structure-breakdown">Structure breakdown<a class="anchor" aria-label="anchor" href="#structure-breakdown"></a>
+</h3>
+<p><strong>Row 1</strong> — CRS metadata. Skipped automatically
+(<code>skip = 1</code>).</p>
+<p><strong>Row 2</strong> — Column headers.</p>
+<p><strong>Rows 3+</strong> — Data. Each detected root is a group of
+consecutive rows:</p>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -82,168 +108,194 @@ node (point) along a detected root, with the following columns:</p>
 </colgroup>
 <thead><tr class="header">
 <th>Column</th>
-<th>Type</th>
+<th>Present in</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code>ROOT_ID</code></td>
-<td>integer</td>
-<td>Unique root identifier. May contain NAs for continuation rows —
-these are filled forward automatically.</td>
+<td><code>N.</code></td>
+<td>First node only</td>
+<td>Root identifier (integer). Empty for continuation rows — filled
+forward by GRootR.</td>
 </tr>
 <tr class="even">
+<td><code>Type</code></td>
+<td>First node only</td>
+<td>Object type (e.g., “Pipe”).</td>
+</tr>
+<tr class="odd">
+<td><code>Name</code></td>
+<td>First node only</td>
+<td>Feature name from GPR software (e.g., “Feature 0010”).</td>
+</tr>
+<tr class="even">
+<td><code>Category</code></td>
+<td>First node only</td>
+<td>Category label (e.g., “Generic”).</td>
+</tr>
+<tr class="odd">
+<td><code>Colour[r,g,b]</code></td>
+<td>First node only</td>
+<td>Display colour.</td>
+</tr>
+<tr class="even">
+<td><code>Diameter/Height[m]</code></td>
+<td>First node only</td>
+<td>Estimated diameter.</td>
+</tr>
+<tr class="odd">
+<td><code>Min/Avg/Max Depth[m]</code></td>
+<td>First node only</td>
+<td>Depth summary for entire root.</td>
+</tr>
+<tr class="even">
+<td><code>Min/Avg/Max Altitude[m]</code></td>
+<td>First node only</td>
+<td>Altitude summary.</td>
+</tr>
+<tr class="odd">
 <td><code>Node</code></td>
-<td>character/numeric</td>
-<td>Node label within each root, e.g. <code>"Node1"</code>,
-<code>"Node2"</code> or just numbers. Used for ordering.</td>
-</tr>
-<tr class="odd">
-<td><code>X.SRS.units.</code></td>
-<td>numeric</td>
-<td>X coordinate in a projected Coordinate Reference System.</td>
+<td>Every row</td>
+<td>Node label: <code>node1</code>, <code>node2</code>, etc.</td>
 </tr>
 <tr class="even">
-<td><code>Y.SRS.units.</code></td>
-<td>numeric</td>
-<td>Y coordinate in a projected CRS.</td>
+<td><code>X[SRS units]</code></td>
+<td>Every row</td>
+<td>X coordinate in the projected CRS.</td>
 </tr>
 <tr class="odd">
-<td><code>Depth.m.</code></td>
-<td>numeric</td>
-<td>Depth below surface in meters. <strong>Positive values</strong> =
-below ground.</td>
+<td><code>Y[SRS units]</code></td>
+<td>Every row</td>
+<td>Y coordinate in the projected CRS.</td>
 </tr>
 <tr class="even">
-<td><code>Altitude.m.</code></td>
-<td>numeric</td>
-<td>
-<em>(optional)</em> Surface altitude — dropped during import.</td>
+<td><code>Depth[m]</code></td>
+<td>Every row</td>
+<td>Depth below surface (positive = underground).</td>
 </tr>
 <tr class="odd">
+<td><code>Altitude[m]</code></td>
+<td>Every row</td>
+<td>Altitude (negative of depth).</td>
+</tr>
+<tr class="even">
 <td><code>Survey</code></td>
-<td>character</td>
-<td>
-<em>(optional)</em> Composite string encoding date, number, plot ID,
-etc., separated by <code>_</code>.</td>
-</tr>
-<tr class="even">
-<td><code>Channel</code></td>
-<td>numeric</td>
-<td>
-<em>(optional)</em> GPR channel number. Retained in output.</td>
+<td>Every row</td>
+<td>Composite scan identifier.</td>
 </tr>
 <tr class="odd">
-<td><code>Propagation.Velocity.cm.ns.</code></td>
-<td>numeric</td>
-<td>
-<em>(optional)</em> Wave propagation velocity. Retained in
-output.</td>
+<td><code>Swath</code></td>
+<td>Every row</td>
+<td>Swath/scan line name.</td>
 </tr>
 <tr class="even">
-<td><code>Cross.Distance.m.</code></td>
-<td>numeric</td>
-<td>
-<em>(optional)</em> Cross-line distance. Retained in output.</td>
+<td><code>Array</code></td>
+<td>Every row</td>
+<td>Antenna array configuration.</td>
+</tr>
+<tr class="odd">
+<td><code>Channel</code></td>
+<td>Every row</td>
+<td>GPR channel number.</td>
+</tr>
+<tr class="even">
+<td><code>Propagation Velocity[cm/ns]</code></td>
+<td>Every row</td>
+<td>Wave velocity.</td>
+</tr>
+<tr class="odd">
+<td><code>Cross Distance[m]</code></td>
+<td>Every row</td>
+<td>Cross-line distance.</td>
 </tr>
 </tbody>
 </table>
-<div class="section level3">
-<h3 id="example-raw-data">Example raw data<a class="anchor" aria-label="anchor" href="#example-raw-data"></a>
-</h3>
-<pre><code>ROOT_ID;Node;Survey;Channel;Propagation.Velocity.cm.ns.;Cross.Distance.m.;X.SRS.units.;Y.SRS.units.;Depth.m.;Altitude.m.
-1;Node1;scan_20240715_001_A_raw;1;8.5;0.12;5546823.45;5765432.10;0.35;312.5
-;Node2;scan_20240715_001_A_raw;1;8.5;0.15;5546823.52;5765432.08;0.42;312.5
-;Node3;scan_20240715_001_A_raw;1;8.5;0.18;5546823.61;5765432.05;0.48;312.5
-2;Node1;scan_20240715_001_A_raw;1;8.5;0.22;5546824.10;5765433.20;0.28;312.5</code></pre>
-<p>Note that <code>ROOT_ID</code> is only specified in the first row of
-each root — subsequent rows are empty (NA). GRootR fills these
-automatically.</p>
+<p>The critical columns for GRootR are:
+<strong><code>N.</code></strong>, <strong><code>Node</code></strong>,
+<strong><code>X[SRS units]</code></strong>,
+<strong><code>Y[SRS units]</code></strong>,
+<strong><code>Depth[m]</code></strong>, and optionally
+<strong><code>Survey</code></strong>.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="column-name-mapping">Column name mapping<a class="anchor" aria-label="anchor" href="#column-name-mapping"></a>
+<h2 id="loading-with-defaults">Loading with defaults<a class="anchor" aria-label="anchor" href="#loading-with-defaults"></a>
 </h2>
-<p>All column names are <strong>configurable</strong>. If your CSV uses
-different names:</p>
+<p>For standard GPR exports, the defaults work out of the box:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"my_data.csv"</span>, sep <span class="op">=</span> <span class="st">";"</span>, root_id_col <span class="op">=</span> <span class="st">"RootNumber"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/j-miszczyszyn/GRootR" class="external-link">GRootR</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_coordinates.html">convert_coordinates</a></span><span class="op">(</span></span>
-<span>  <span class="va">df</span>,</span>
-<span>  x_col <span class="op">=</span> <span class="st">"Easting"</span>,</span>
-<span>  y_col <span class="op">=</span> <span class="st">"Northing"</span>,</span>
-<span>  z_col <span class="op">=</span> <span class="st">"DepthMeters"</span>,</span>
-<span>  negate_z <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_root_data.html">prepare_root_data</a></span><span class="op">(</span><span class="st">"gpr_export.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>This is equivalent to:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"gpr_export.csv"</span>, sep <span class="op">=</span> <span class="st">","</span>, skip <span class="op">=</span> <span class="fl">1</span>, root_id_col <span class="op">=</span> <span class="st">"N."</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/split_survey_column.html">split_survey_column</a></span><span class="op">(</span><span class="va">df</span>, survey_col <span class="op">=</span> <span class="st">"Survey"</span>, plot_position <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_coordinates.html">convert_coordinates</a></span><span class="op">(</span><span class="va">df</span>, x_col <span class="op">=</span> <span class="st">"X[SRS units]"</span>,</span>
+<span>                          y_col <span class="op">=</span> <span class="st">"Y[SRS units]"</span>, z_col <span class="op">=</span> <span class="st">"Depth[m]"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="coordinate-reference-system">Coordinate Reference System<a class="anchor" aria-label="anchor" href="#coordinate-reference-system"></a>
+<h2 id="custom-column-names">Custom column names<a class="anchor" aria-label="anchor" href="#custom-column-names"></a>
 </h2>
-<p>GRootR does not reproject data — it uses whatever CRS your
-coordinates are in. You specify the EPSG code when building
-segments:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Polish CS2000 zone 7</span></span>
-<span><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_all_roots.html">process_all_roots</a></span><span class="op">(</span><span class="va">df</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span>
+<p>If your GPR software uses different column names:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"my_data.csv"</span>, sep <span class="op">=</span> <span class="st">";"</span>, skip <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                    root_id_col <span class="op">=</span> <span class="st">"RootNumber"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># UTM zone 33N</span></span>
-<span><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_all_roots.html">process_all_roots</a></span><span class="op">(</span><span class="va">df</span>, crs <span class="op">=</span> <span class="fl">32633</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Any other projected CRS</span></span>
-<span><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_all_roots.html">process_all_roots</a></span><span class="op">(</span><span class="va">df</span>, crs <span class="op">=</span> <span class="fl">25832</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Important:</strong> Use a <em>projected</em> CRS (meters),
-not geographic (degrees). Distances and areas are computed in CRS
-units.</p>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_coordinates.html">convert_coordinates</a></span><span class="op">(</span><span class="va">df</span>, x_col <span class="op">=</span> <span class="st">"Easting"</span>, y_col <span class="op">=</span> <span class="st">"Northing"</span>,</span>
+<span>                          z_col <span class="op">=</span> <span class="st">"DepthMeters"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="the-survey-column">The Survey column<a class="anchor" aria-label="anchor" href="#the-survey-column"></a>
 </h2>
-<p>The <code>Survey</code> column typically contains a composite
-filename like:</p>
-<pre><code><span><span class="va">scan_20240715_001_A_raw</span></span></code></pre>
-<p><code><a href="../reference/split_survey_column.html">split_survey_column()</a></code> splits it by <code>_</code> and
-extracts one part as the plot ID:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>The Survey column typically encodes scan metadata in a composite
+string:</p>
+<pre><code>Survey_2024.10.29_001_A_converted
+  │       │        │   │     │
+  │       │        │   │     └── processing status
+  │       │        │   └──────── plot ID (position 4)
+  │       │        └──────────── scan number
+  │       └───────────────────── date
+  └───────────────────────────── prefix</code></pre>
+<p><code><a href="../reference/split_survey_column.html">split_survey_column()</a></code> splits by <code>_</code> and
+extracts the plot ID:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Default: 4th part → "A"</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/split_survey_column.html">split_survey_column</a></span><span class="op">(</span><span class="va">df</span>, survey_col <span class="op">=</span> <span class="st">"Survey"</span>, sep <span class="op">=</span> <span class="st">"_"</span>, plot_position <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/split_survey_column.html">split_survey_column</a></span><span class="op">(</span><span class="va">df</span>, plot_position <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># If your plot ID is in a different position:</span></span>
+<span><span class="co"># If your plot ID is elsewhere:</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/split_survey_column.html">split_survey_column</a></span><span class="op">(</span><span class="va">df</span>, plot_position <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p>If you don’t have a Survey column or don’t need it, pass
-<code>survey_col = NULL</code> to <code><a href="../reference/prepare_root_data.html">prepare_root_data()</a></code>.</p>
+<p>If you don’t need the plot ID, skip it:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_root_data.html">prepare_root_data</a></span><span class="op">(</span><span class="st">"data.csv"</span>, survey_col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="comma-vs-semicolon-csv">Comma vs semicolon CSV<a class="anchor" aria-label="anchor" href="#comma-vs-semicolon-csv"></a>
+<h2 id="coordinate-reference-system">Coordinate Reference System<a class="anchor" aria-label="anchor" href="#coordinate-reference-system"></a>
 </h2>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Semicolon-separated (csv2 format, European)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"data.csv"</span>, sep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
+<p>GRootR preserves whatever CRS your coordinates are in. You specify
+the EPSG code when building segments:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Polish CS2000 zone 7 (common for GPR data from Poland)</span></span>
+<span><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_all_roots.html">process_all_roots</a></span><span class="op">(</span><span class="va">df</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Comma-separated (standard csv)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"data.csv"</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># UTM zone 33N</span></span>
+<span><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_all_roots.html">process_all_roots</a></span><span class="op">(</span><span class="va">df</span>, crs <span class="op">=</span> <span class="fl">32633</span><span class="op">)</span></span></code></pre></div>
+<p>Use a <strong>projected</strong> CRS (meters). Geographic CRS
+(degrees) will produce meaningless distances and areas.</p>
 </div>
 <div class="section level2">
 <h2 id="tree-location-data">Tree location data<a class="anchor" aria-label="anchor" href="#tree-location-data"></a>
 </h2>
-<p>For joining roots with trees, you need a spatial file (shapefile,
-GeoPackage, etc.) with tree stem positions as
-<strong>points</strong>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>For joining roots with trees, provide a spatial file with tree stem
+positions as points:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Shapefile</span></span>
 <span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="st">"trees.shp"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># GeoPackage</span></span>
-<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="st">"trees.gpkg"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># From CSV with coordinates</span></span>
-<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"trees.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="co"># Or from CSV:</span></span>
+<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"trees.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="st">"Y"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span></code></pre></div>
-<p>The tree data must have an <strong>ID column</strong> (any name) that
-uniquely identifies each tree. CRS is automatically matched during the
-join.</p>
+<p>The tree data needs an ID column (any name) and point geometry. CRS
+matching is handled automatically during the join.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -252,7 +304,7 @@ join.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jakub Miszczyszyn, Luiza Tyminska-Czabanska.</p>
+  <p>Developed by <a href="https://miszczyszyn.org" class="external-link">Jakub Miszczyszyn</a> &amp; <a href="https://orcid.org/0000-0002-4921-7070" class="external-link">Luiza Tymińska-Czabańska</a> at the Faculty of Forestry, University of Agriculture in Krakow. Funded by NCN (National Science Centre, Poland).</p>
 </div>
 
 <div class="pkgdown-footer-right">

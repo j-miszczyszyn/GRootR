@@ -4,7 +4,7 @@ Tools for processing and analyzing tree root system data obtained from
 Ground Penetrating Radar (GPR) with 3D scanning capabilities. The
 package provides functions to:
 
-- **Load** raw CSV point data and prepare coordinates
+- **Load** raw CSV data exported from GPR software (e.g., ImpulseRadar)
 
 - **Build** spatial line segments between consecutive root nodes
 
@@ -24,39 +24,50 @@ package provides functions to:
 
 - **Compute** root-to-trunk distances
 
-## Expected CSV structure
+## Raw CSV format from GPR software
 
-The input CSV should contain at minimum:
+The input CSV is a direct export from GPR processing software. It
+typically contains a CRS metadata header row, followed by column names
+and data. The structure looks like:
 
-- ROOT_ID:
+    Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,...
+    N.,Type,Name,...,Node,`X[SRS units]`,`Y[SRS units]`,`Depth[m]`,...,Survey,...
+    1,Pipe,Feature 0010,...,node1,7394244.316,5578579.578,0.202,...
+    ,,,,,...,node2,7394245.057,5578579.786,0.202,...
+    2,Pipe,Feature 0011,...,node1,7394244.185,5578580.438,0.202,...
 
-  Integer or numeric root identifier (may have NAs for continuation
-  rows)
+Key characteristics:
+
+- N.:
+
+  Root identifier (integer). Only filled in the first node row of each
+  root — continuation rows are empty.
 
 - Node:
 
-  Node label within each root (e.g., "Node1", "Node2", or numeric)
+  Node label within root (e.g., "node1", "node2"). Used for ordering.
 
-- X column:
+- `X[SRS units]`, `Y[SRS units]`:
 
-  X coordinate in a projected CRS
+  Coordinates in a projected CRS.
 
-- Y column:
+- `Depth[m]`:
 
-  Y coordinate in a projected CRS
+  Depth below surface (positive = below ground).
 
-- Z/Depth column:
+- Survey:
 
-  Depth value (positive = below surface)
+  Composite string with date, number, plot ID, etc.
 
-Column names are configurable in all functions.
+Column names are configurable in all functions — the defaults match the
+standard GPR export format.
 
 ## Project
 
 Developed as part of the NCN-funded project: "Application of
 Ground-Penetrating Radar with 3D Scanner for Measuring Variability in
 Scots Pine Root Systems" (Zastosowanie georadaru ze skanerem 3D do
-pomiarów zmienności systemów korzeniowych sosny zwyczajnej)
+pomiarow zmiennosci systemow korzeniowych sosny zwyczajnej)
 
 ## See also
 

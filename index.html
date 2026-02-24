@@ -5,22 +5,32 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>3D Visualization and Statistical Analysis of Tree Roots Detected with Ground Penetrating Radar • GRootR</title>
-<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>GRootR — Root System Analysis from GPR Data • GRootR</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
+<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="deps/Fira_Code-0.4.10/font.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="3D Visualization and Statistical Analysis of Tree Roots Detected with Ground Penetrating Radar">
-<meta name="description" content='Tools for processing and analyzing tree root system data obtained from Ground Penetrating Radar (GPR) with 3D scanning capabilities. Converts raw CSV point data into spatial line segments, calculates geometric metrics (3D length, azimuth, inclination, depth), joins roots with tree stem locations, builds 2D convex hull polygons representing root system spread, estimates 3D bounding volume, and analyzes inter-tree root overlap competition. Developed as part of the NCN-funded project "Application of Ground-Penetrating Radar with 3D Scanner for Measuring Variability in Scots Pine Root Systems".'>
-<meta property="og:description" content='Tools for processing and analyzing tree root system data obtained from Ground Penetrating Radar (GPR) with 3D scanning capabilities. Converts raw CSV point data into spatial line segments, calculates geometric metrics (3D length, azimuth, inclination, depth), joins roots with tree stem locations, builds 2D convex hull polygons representing root system spread, estimates 3D bounding volume, and analyzes inter-tree root overlap competition. Developed as part of the NCN-funded project "Application of Ground-Penetrating Radar with 3D Scanner for Measuring Variability in Scots Pine Root Systems".'>
+<meta property="og:title" content="GRootR — Root System Analysis from GPR Data">
+<meta name="description" content="R package for processing Ground Penetrating Radar data into spatial root system metrics: segments, lengths, depths, 2D/3D morphology, and inter-tree competition analysis.
+">
+<meta property="og:description" content="R package for processing Ground Penetrating Radar data into spatial root system metrics: segments, lengths, depths, 2D/3D morphology, and inter-tree competition analysis.
+">
 <meta property="og:image" content="https://j-miszczyszyn.github.io/GRootR/logo.png">
+<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">GRootR</a>
 
@@ -33,12 +43,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="articles/getting-started.html">Get Started</a></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/data-format.html">Data Format &amp; Import</a></li>
-    <li><a class="dropdown-item" href="articles/getting-started.html">Getting Started with GRootR</a></li>
+<li><a class="dropdown-item" href="articles/getting-started.html">Getting Started</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="articles/data-format.html">Data Format &amp; Import</a></li>
     <li><a class="dropdown-item" href="articles/segment-metrics.html">Segment Metrics Explained</a></li>
     <li><a class="dropdown-item" href="articles/tree-analysis.html">Tree-Level Analysis</a></li>
   </ul>
@@ -49,7 +61,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/j-miszczyszyn/GRootR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/j-miszczyszyn/GRootR" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -67,7 +79,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The <strong>GRootR</strong> package provides tools for processing and analyzing tree root system data obtained from Ground Penetrating Radar (GPR) with 3D scanning capabilities. It converts raw CSV point data into spatial segments, computes geometric and morphological metrics, and enables inter-tree competition analysis.</p>
+<p><strong>GRootR</strong> processes raw CSV data exported from GPR (Ground Penetrating Radar) software into spatial root segments, computes geometric and morphological metrics, and enables inter-tree root competition analysis.</p>
 <p>Developed as part of the NCN-funded project: <strong>“Zastosowanie georadaru ze skanerem 3D do pomiarów zmienności systemów korzeniowych sosny zwyczajnej”</strong> (<strong>“Application of Ground-Penetrating Radar with 3D Scanner for Measuring Variability in Scots Pine Root Systems”</strong>)</p>
 <div class="float">
 <img src="reference/figures/pipeline.svg" alt="GRootR Pipeline"><div class="figcaption">GRootR Pipeline</div>
@@ -81,42 +93,29 @@
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"j-miszczyszyn/GRootR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="expected-csv-structure">Expected CSV structure<a class="anchor" aria-label="anchor" href="#expected-csv-structure"></a>
+<h2 id="input-data-format">Input data format<a class="anchor" aria-label="anchor" href="#input-data-format"></a>
 </h2>
-<table class="table">
-<thead><tr class="header">
-<th>Column</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td><code>ROOT_ID</code></td>
-<td>Root identifier (integer, NAs filled forward)</td>
-</tr>
-<tr class="even">
-<td><code>Node</code></td>
-<td>Node label within root (e.g. <code>"Node1"</code>, <code>"Node2"</code>)</td>
-</tr>
-<tr class="odd">
-<td><code>X.SRS.units.</code></td>
-<td>X coordinate (projected CRS)</td>
-</tr>
-<tr class="even">
-<td><code>Y.SRS.units.</code></td>
-<td>Y coordinate (projected CRS)</td>
-</tr>
-<tr class="odd">
-<td><code>Depth.m.</code></td>
-<td>Depth in meters (positive = below surface)</td>
-</tr>
-<tr class="even">
-<td><code>Survey</code></td>
-<td>
-<em>(optional)</em> Composite filename with plot ID</td>
-</tr>
-</tbody>
-</table>
-<p>All column names are configurable through function parameters.</p>
+<p>GRootR reads CSV files directly exported from GPR processing software (e.g., ImpulseRadar, REFLEXW, GPR-SLICE). A typical file looks like:</p>
+<pre><code>Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,,,...
+N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
+1,Pipe,Feature 0010,Generic,...,node1,7394244.316,5578579.578,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+,,,,,...,node2,7394245.057,5578579.786,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+,,,,,...,node3,7394245.455,5578580.134,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+2,Pipe,Feature 0011,Generic,...,node1,7394244.185,5578580.438,0.202,-0.202,Survey_2024.10.29_001_A_converted,...</code></pre>
+<p>Key points:</p>
+<ul>
+<li>
+<strong>Row 1</strong> is CRS metadata (skipped automatically)</li>
+<li>
+<strong><code>N.</code></strong> column is the root identifier — only filled in the first node of each root, empty for continuation rows (filled forward automatically)</li>
+<li>
+<strong><code>Node</code></strong> contains node labels like <code>node1</code>, <code>node2</code> (ordering extracted automatically)</li>
+<li>
+<strong><code>X[SRS units]</code></strong>, <strong><code>Y[SRS units]</code></strong>, <strong><code>Depth[m]</code></strong> are coordinates</li>
+<li>
+<strong><code>Survey</code></strong> is a composite string containing date, number, and plot ID</li>
+</ul>
+<p>All column names are configurable — the defaults match this standard GPR export format.</p>
 </div>
 <div class="section level2">
 <h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
@@ -124,26 +123,27 @@
 <div class="section level3">
 <h3 id="id_1-load-and-prepare-data">1. Load and prepare data<a class="anchor" aria-label="anchor" href="#id_1-load-and-prepare-data"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/j-miszczyszyn/GRootR" class="external-link">GRootR</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_root_data.html">prepare_root_data</a></span><span class="op">(</span><span class="st">"path/to/roots.csv"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># One-liner — uses GPR export defaults</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_root_data.html">prepare_root_data</a></span><span class="op">(</span><span class="st">"path/to/gpr_export.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>Or step by step:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"roots.csv"</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/split_survey_column.html">split_survey_column</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/convert_coordinates.html">convert_coordinates</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"gpr_export.csv"</span><span class="op">)</span>          <span class="co"># skip=1, root_id_col="N."</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/split_survey_column.html">split_survey_column</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>                    <span class="co"># extracts plot ID from Survey</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/convert_coordinates.html">convert_coordinates</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>                    <span class="co"># X[SRS units] → X, Y, Z</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_2-build-segments-with-metrics">2. Build segments with metrics<a class="anchor" aria-label="anchor" href="#id_2-build-segments-with-metrics"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/build_segments_with_metrics.html">build_segments_with_metrics</a></span><span class="op">(</span><span class="va">df</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="id_3-join-with-tree-locations">3. Join with tree locations<a class="anchor" aria-label="anchor" href="#id_3-join-with-tree-locations"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="st">"trees.shp"</span><span class="op">)</span></span>
 <span></span>
@@ -153,45 +153,25 @@
 <div class="section level3">
 <h3 id="id_4-root-and-tree-level-metrics">4. Root and tree level metrics<a class="anchor" aria-label="anchor" href="#id_4-root-and-tree-level-metrics"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_root_length.html">calc_root_length</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
 <span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_tree_length.html">calc_tree_length</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
-<span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/assign_depth_class.html">assign_depth_class</a></span><span class="op">(</span><span class="va">joined</span>, bin_m <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">depth</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_depth_stats.html">calc_depth_stats</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
-<span><span class="va">orient</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/count_orientations.html">count_orientations</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/assign_depth_class.html">assign_depth_class</a></span><span class="op">(</span><span class="va">joined</span>, bin_m <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_5-2d-convex-hulls--area">5. 2D convex hulls &amp; area<a class="anchor" aria-label="anchor" href="#id_5-2d-convex-hulls--area"></a>
-</h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hulls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/build_convex_hulls.html">build_convex_hulls</a></span><span class="op">(</span><span class="va">joined</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span>
-<span><span class="va">hulls</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_hull_area.html">calc_hull_area</a></span><span class="op">(</span><span class="va">hulls</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="id_6-3d-volume-estimate">6. 3D volume estimate<a class="anchor" aria-label="anchor" href="#id_6-3d-volume-estimate"></a>
+<h3 id="id_5-2d3d-analysis">5. 2D/3D analysis<a class="anchor" aria-label="anchor" href="#id_5-2d3d-analysis"></a>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">z_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_real_z.html">calc_real_z</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
-<span><span class="va">vol</span>     <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_range_3d.html">calc_range_3d</a></span><span class="op">(</span><span class="va">z_range</span>, <span class="va">hulls</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="id_7-root-system-overlap">7. Root system overlap<a class="anchor" aria-label="anchor" href="#id_7-root-system-overlap"></a>
-</h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">overlaps</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_all_overlaps.html">calc_all_overlaps</a></span><span class="op">(</span><span class="va">hulls</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="id_8-root-to-trunk-distance">8. Root-to-trunk distance<a class="anchor" aria-label="anchor" href="#id_8-root-to-trunk-distance"></a>
-</h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/merge_root_segments.html">merge_root_segments</a></span><span class="op">(</span><span class="va">segments_with_trees</span><span class="op">)</span></span>
-<span><span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_dist_to_trunk.html">calc_dist_to_trunk</a></span><span class="op">(</span><span class="va">merged</span>, <span class="va">trees</span>, tree_id_col <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hulls</span>    <span class="op">&lt;-</span> <span class="fu"><a href="reference/build_convex_hulls.html">build_convex_hulls</a></span><span class="op">(</span><span class="va">joined</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span>
+<span><span class="va">hulls</span>    <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_hull_area.html">calc_hull_area</a></span><span class="op">(</span><span class="va">hulls</span><span class="op">)</span></span>
+<span><span class="va">z_range</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_real_z.html">calc_real_z</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
+<span><span class="va">volume</span>   <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_range_3d.html">calc_range_3d</a></span><span class="op">(</span><span class="va">z_range</span>, <span class="va">hulls</span><span class="op">)</span></span>
+<span><span class="va">overlaps</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/calc_all_overlaps.html">calc_all_overlaps</a></span><span class="op">(</span><span class="va">hulls</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="all-in-one-tree-summary">All-in-one tree summary<a class="anchor" aria-label="anchor" href="#all-in-one-tree-summary"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/summarise_tree_roots.html">summarise_tree_roots</a></span><span class="op">(</span><span class="va">joined</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span>
 <span><span class="co"># Returns: $depth, $orientations, $hulls, $volume</span></span></code></pre></div>
 </div>
@@ -203,6 +183,10 @@
 <h3 id="loading--preparation">Loading &amp; preparation<a class="anchor" aria-label="anchor" href="#loading--preparation"></a>
 </h3>
 <table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
 <thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
@@ -210,15 +194,18 @@
 <tbody>
 <tr class="odd">
 <td><code><a href="reference/load_root_csv.html">load_root_csv()</a></code></td>
-<td>Load CSV + fill ROOT_ID</td>
+<td>Load GPR export CSV, skip header, fill <code>N.</code> → <code>ROOT_ID</code>
+</td>
 </tr>
 <tr class="even">
 <td><code><a href="reference/split_survey_column.html">split_survey_column()</a></code></td>
-<td>Extract plot ID from composite column</td>
+<td>Extract plot ID from composite Survey string</td>
 </tr>
 <tr class="odd">
 <td><code><a href="reference/convert_coordinates.html">convert_coordinates()</a></code></td>
-<td>Convert X, Y, Z to numeric</td>
+<td>
+<code>X[SRS units]</code> → <code>X</code>, <code>Y[SRS units]</code> → <code>Y</code>, <code>Depth[m]</code> → <code>Z</code>
+</td>
 </tr>
 <tr class="even">
 <td><code><a href="reference/prepare_root_data.html">prepare_root_data()</a></code></td>
@@ -423,13 +410,6 @@
 </div>
 
 
-<div class="citation">
-<h2 data-toc-skip>Citation</h2>
-<ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing GRootR</a></li>
-</ul>
-</div>
-
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
@@ -448,12 +428,19 @@
 </ul>
 </div>
 
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><p>Miszczyszyn, J., Tymińska-Czabańska, L. (2025). GRootR: 3D Visualization and Statistical Analysis of Tree Roots Detected with Ground Penetrating Radar. R package. <a href="https://j-miszczyszyn.github.io/GRootR/" class="uri">https://j-miszczyszyn.github.io/GRootR/</a></p></li>
+</ul>
+</div>
+
   </aside>
 </div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jakub Miszczyszyn, Luiza Tyminska-Czabanska.</p>
+  <p>Developed by <a href="https://miszczyszyn.org" class="external-link">Jakub Miszczyszyn</a> &amp; <a href="https://orcid.org/0000-0002-4921-7070" class="external-link">Luiza Tymińska-Czabańska</a> at the Faculty of Forestry, University of Agriculture in Krakow. Funded by NCN (National Science Centre, Poland).</p>
 </div>
 
 <div class="pkgdown-footer-right">

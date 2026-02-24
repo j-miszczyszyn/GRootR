@@ -2,10 +2,10 @@
 
 ## Overview
 
-**GRootR** processes Ground Penetrating Radar (GPR) root survey data
-through a pipeline that transforms raw CSV point data into spatial
-segments with geometric metrics, 2D/3D morphology estimates, and
-inter-tree competition analysis.
+**GRootR** processes raw CSV data exported from GPR software through a
+pipeline that transforms point data into spatial segments with geometric
+metrics, 2D/3D morphology estimates, and inter-tree competition
+analysis.
 
 ![GRootR Pipeline](../reference/figures/pipeline.svg)
 
@@ -21,38 +21,41 @@ pak::pak("j-miszczyszyn/GRootR")
 ## Step 1: Load and prepare data
 
 The simplest approach uses
-[`prepare_root_data()`](https://j-miszczyszyn.github.io/GRootR/reference/prepare_root_data.md),
-which handles loading, cleaning, and coordinate conversion in one call:
+[`prepare_root_data()`](https://j-miszczyszyn.github.io/GRootR/reference/prepare_root_data.md).
+The defaults match the standard GPR export format — just point to your
+CSV:
 
 ``` r
 library(GRootR)
 
-df <- prepare_root_data(
-  path = "path/to/roots.csv",
-  sep = ";",
-  x_col = "X.SRS.units.",
-  y_col = "Y.SRS.units.",
-  z_col = "Depth.m.",
-  negate_z = TRUE,
-  survey_col = "Survey",
-  plot_position = 4
-)
+df <- prepare_root_data("path/to/gpr_export.csv")
 ```
 
-This does three things internally:
+Or step by step:
+
+``` r
+df <- load_root_csv("gpr_export.csv")   # skips CRS header, fills N. -> ROOT_ID
+df <- split_survey_column(df)            # extracts plot ID from Survey column
+df <- convert_coordinates(df)            # X[SRS units] -> X, Y, Z
+```
+
+What happens internally:
 
 1.  **[`load_root_csv()`](https://j-miszczyszyn.github.io/GRootR/reference/load_root_csv.md)**
-    — reads the CSV and fills missing `ROOT_ID` values using last
-    observation carried forward
+    — skips the CRS metadata header row, reads the CSV, and fills
+    missing `N.` values (the root identifier only appears in the first
+    row of each root — continuation rows are empty)
 2.  **[`split_survey_column()`](https://j-miszczyszyn.github.io/GRootR/reference/split_survey_column.md)**
-    — extracts the plot identifier from a composite survey/filename
-    column
+    — extracts the plot identifier from the composite Survey string
+    (e.g., `"Survey_2024.10.29_001_A_converted"` -\> `"A"`)
 3.  **[`convert_coordinates()`](https://j-miszczyszyn.github.io/GRootR/reference/convert_coordinates.md)**
-    — converts X, Y, Z columns to numeric; negates depth so
-    below-surface = negative
+    — converts `X[SRS units]`, `Y[SRS units]`, `Depth[m]` to numeric
+    `X`, `Y`, `Z`; negates depth so below-surface = negative
 
-If your CSV has different column names, adjust the parameters
-accordingly.
+If your CSV uses different column names, adjust the parameters
+accordingly. See
+[`vignette("data-format")`](https://j-miszczyszyn.github.io/GRootR/articles/data-format.md)
+for details.
 
 ## Step 2: Build segments with metrics
 
@@ -67,24 +70,23 @@ This creates an `sf` object where each row is a line segment between two
 consecutive root nodes, with columns:
 
 - `length_3d` — 3D Euclidean distance (meters)
-- `azimuth` — bearing from north, 0–360°
+- `azimuth` — bearing from north, 0-360 degrees
 - `inclination_angle` — angle from horizontal plane (degrees)
-- `slope_category` — classified as “horizontal”, “slight”, “moderate”,
-  “steep”, or “vertical”
+- `slope_category` — “horizontal”, “slight”, “moderate”, “steep”, or
+  “vertical”
 - `orientation` — binary: “vertical” or “horizontal”
 - `pX, pY, pZ` — start point coordinates
 - `kX, kY, kZ` — end point coordinates
 
 ## Step 3: Join with tree locations
 
-If you have a shapefile (or other spatial file) with tree stem
-positions:
+If you have a spatial file with tree stem positions:
 
 ``` r
 library(sf)
-trees <- st_read("trees.shp") %>%
-  st_zm() %>%                          # drop Z if present
-  select(Name, geometry)               # keep only ID + geometry
+trees <- st_read("trees.shp") |>
+  st_zm() |>
+  select(Name, geometry)
 
 joined <- join_nearest_tree(segments, trees, tree_id_col = "Name", max_dist = 1.5)
 joined <- propagate_tree_name(joined, tree_id_col = "Name")
@@ -99,20 +101,12 @@ identity, even if only one segment was close enough to match.
 ## Step 4: Root and tree level metrics
 
 ``` r
-# Total length per individual root
-joined <- calc_root_length(joined)
+joined <- calc_root_length(joined)           # total_length_root per ROOT_ID
+joined <- calc_tree_length(joined)           # total_length_tree per TREE_ID
+joined <- assign_depth_class(joined, bin_m = 0.2)  # 20 cm depth bins
 
-# Total length per tree (sum of all roots)
-joined <- calc_tree_length(joined)
-
-# Classify into depth bins (20 cm default)
-joined <- assign_depth_class(joined, bin_m = 0.2)
-
-# Per-tree depth statistics
-depth_stats <- calc_depth_stats(joined)
-
-# Count vertical vs horizontal segments per tree
-orientations <- count_orientations(joined)
+depth_stats  <- calc_depth_stats(joined)     # depth_max, depth_mean, depth_range
+orientations <- count_orientations(joined)   # n_vertical, n_horizontal
 ```
 
 ## Step 5: 2D convex hulls
@@ -124,16 +118,10 @@ system:
 hulls <- build_convex_hulls(joined, crs = 2178)
 hulls <- calc_hull_area(hulls)
 
-# Save as shapefile
 sf::st_write(hulls, "root_polygons_2D.shp")
 ```
 
-Each polygon has: `area_2d` (m²), `extent_x` and `extent_y` (bounding
-box dimensions).
-
 ## Step 6: 3D volume estimate
-
-Estimate the bounding volume as `vertical_range × area_2d`:
 
 ``` r
 z_range <- calc_real_z(joined)
@@ -142,14 +130,9 @@ volume  <- calc_range_3d(z_range, hulls)
 
 ## Step 7: Overlap / competition analysis
 
-Calculate how much root systems of neighboring trees overlap:
-
 ``` r
 overlaps <- calc_all_overlaps(hulls)
 ```
-
-Returns a table with: `tree_1`, `tree_2`, `overlap_area` (m²),
-`overlap_pct_tree1`, `overlap_pct_tree2`.
 
 ## Step 8: Root-to-trunk distance
 
@@ -160,13 +143,9 @@ merged <- calc_dist_to_trunk(merged, trees, tree_id_col = "Name")
 
 ## All-in-one summary
 
-For a quick tree-level summary combining depth, orientations, hulls, and
-volume:
-
 ``` r
 tree_summary <- summarise_tree_roots(joined, crs = 2178)
 
-# Access components:
 tree_summary$depth
 tree_summary$orientations
 tree_summary$hulls

@@ -2,11 +2,9 @@
 
 ## Overview
 
-The **GRootR** package provides tools for processing and analyzing tree
-root system data obtained from Ground Penetrating Radar (GPR) with 3D
-scanning capabilities. It converts raw CSV point data into spatial
-segments, computes geometric and morphological metrics, and enables
-inter-tree competition analysis.
+**GRootR** processes raw CSV data exported from GPR (Ground Penetrating
+Radar) software into spatial root segments, computes geometric and
+morphological metrics, and enables inter-tree root competition analysis.
 
 Developed as part of the NCN-funded project: **“Zastosowanie georadaru
 ze skanerem 3D do pomiarów zmienności systemów korzeniowych sosny
@@ -24,18 +22,32 @@ GRootR Pipeline
 pak::pak("j-miszczyszyn/GRootR")
 ```
 
-## Expected CSV structure
+## Input data format
 
-| Column         | Description                                        |
-|----------------|----------------------------------------------------|
-| `ROOT_ID`      | Root identifier (integer, NAs filled forward)      |
-| `Node`         | Node label within root (e.g. `"Node1"`, `"Node2"`) |
-| `X.SRS.units.` | X coordinate (projected CRS)                       |
-| `Y.SRS.units.` | Y coordinate (projected CRS)                       |
-| `Depth.m.`     | Depth in meters (positive = below surface)         |
-| `Survey`       | *(optional)* Composite filename with plot ID       |
+GRootR reads CSV files directly exported from GPR processing software
+(e.g., ImpulseRadar, REFLEXW, GPR-SLICE). A typical file looks like:
 
-All column names are configurable through function parameters.
+    Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,,,...
+    N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
+    1,Pipe,Feature 0010,Generic,...,node1,7394244.316,5578579.578,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+    ,,,,,...,node2,7394245.057,5578579.786,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+    ,,,,,...,node3,7394245.455,5578580.134,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+    2,Pipe,Feature 0011,Generic,...,node1,7394244.185,5578580.438,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+
+Key points:
+
+- **Row 1** is CRS metadata (skipped automatically)
+- **`N.`** column is the root identifier — only filled in the first node
+  of each root, empty for continuation rows (filled forward
+  automatically)
+- **`Node`** contains node labels like `node1`, `node2` (ordering
+  extracted automatically)
+- **`X[SRS units]`**, **`Y[SRS units]`**, **`Depth[m]`** are coordinates
+- **`Survey`** is a composite string containing date, number, and plot
+  ID
+
+All column names are configurable — the defaults match this standard GPR
+export format.
 
 ## Quick start
 
@@ -44,15 +56,16 @@ All column names are configurable through function parameters.
 ``` r
 library(GRootR)
 
-df <- prepare_root_data("path/to/roots.csv")
+# One-liner — uses GPR export defaults
+df <- prepare_root_data("path/to/gpr_export.csv")
 ```
 
 Or step by step:
 
 ``` r
-df <- load_root_csv("roots.csv")
-df <- split_survey_column(df)
-df <- convert_coordinates(df)
+df <- load_root_csv("gpr_export.csv")          # skip=1, root_id_col="N."
+df <- split_survey_column(df)                    # extracts plot ID from Survey
+df <- convert_coordinates(df)                    # X[SRS units] → X, Y, Z
 ```
 
 ### 2. Build segments with metrics
@@ -77,36 +90,16 @@ joined <- propagate_tree_name(joined, tree_id_col = "Name")
 joined <- calc_root_length(joined)
 joined <- calc_tree_length(joined)
 joined <- assign_depth_class(joined, bin_m = 0.2)
-
-depth  <- calc_depth_stats(joined)
-orient <- count_orientations(joined)
 ```
 
-### 5. 2D convex hulls & area
+### 5. 2D/3D analysis
 
 ``` r
-hulls <- build_convex_hulls(joined, crs = 2178)
-hulls <- calc_hull_area(hulls)
-```
-
-### 6. 3D volume estimate
-
-``` r
-z_range <- calc_real_z(joined)
-vol     <- calc_range_3d(z_range, hulls)
-```
-
-### 7. Root system overlap
-
-``` r
+hulls    <- build_convex_hulls(joined, crs = 2178)
+hulls    <- calc_hull_area(hulls)
+z_range  <- calc_real_z(joined)
+volume   <- calc_range_3d(z_range, hulls)
 overlaps <- calc_all_overlaps(hulls)
-```
-
-### 8. Root-to-trunk distance
-
-``` r
-merged <- merge_root_segments(segments_with_trees)
-merged <- calc_dist_to_trunk(merged, trees, tree_id_col = "Name")
 ```
 
 ### All-in-one tree summary
@@ -120,12 +113,12 @@ summary <- summarise_tree_roots(joined, crs = 2178)
 
 ### Loading & preparation
 
-| Function                                                                                           | Description                           |
-|----------------------------------------------------------------------------------------------------|---------------------------------------|
-| [`load_root_csv()`](https://j-miszczyszyn.github.io/GRootR/reference/load_root_csv.md)             | Load CSV + fill ROOT_ID               |
-| [`split_survey_column()`](https://j-miszczyszyn.github.io/GRootR/reference/split_survey_column.md) | Extract plot ID from composite column |
-| [`convert_coordinates()`](https://j-miszczyszyn.github.io/GRootR/reference/convert_coordinates.md) | Convert X, Y, Z to numeric            |
-| [`prepare_root_data()`](https://j-miszczyszyn.github.io/GRootR/reference/prepare_root_data.md)     | All-in-one loader                     |
+| Function                                                                                           | Description                                                  |
+|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| [`load_root_csv()`](https://j-miszczyszyn.github.io/GRootR/reference/load_root_csv.md)             | Load GPR export CSV, skip header, fill `N.` → `ROOT_ID`      |
+| [`split_survey_column()`](https://j-miszczyszyn.github.io/GRootR/reference/split_survey_column.md) | Extract plot ID from composite Survey string                 |
+| [`convert_coordinates()`](https://j-miszczyszyn.github.io/GRootR/reference/convert_coordinates.md) | `X[SRS units]` → `X`, `Y[SRS units]` → `Y`, `Depth[m]` → `Z` |
+| [`prepare_root_data()`](https://j-miszczyszyn.github.io/GRootR/reference/prepare_root_data.md)     | All-in-one loader                                            |
 
 ### Segment creation
 

@@ -1,7 +1,9 @@
 # Split survey column
 
 Splits a composite survey/filename column into parts by a separator and
-extracts the plot identifier.
+extracts the plot identifier. The default format from GPR software is
+e.g. `"Survey_2024.10.29_001_A_converted"` where the plot ID is the 4th
+part (here: `"A"`).
 
 ## Usage
 

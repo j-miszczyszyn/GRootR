@@ -6,18 +6,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Getting Started with GRootR • GRootR</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/Fira_Code-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Getting Started with GRootR">
+<link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="../index.html">GRootR</a>
 
@@ -30,12 +38,14 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="active nav-item"><a class="nav-link" href="../articles/getting-started.html">Get Started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/data-format.html">Data Format &amp; Import</a></li>
-    <li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started with GRootR</a></li>
+<li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../articles/data-format.html">Data Format &amp; Import</a></li>
     <li><a class="dropdown-item" href="../articles/segment-metrics.html">Segment Metrics Explained</a></li>
     <li><a class="dropdown-item" href="../articles/tree-analysis.html">Tree-Level Analysis</a></li>
   </ul>
@@ -46,7 +56,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/j-miszczyszyn/GRootR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/j-miszczyszyn/GRootR" aria-label="GitHub"><span class="fa fab fa-github"></span></a></li>
       </ul>
 </div>
 
@@ -71,9 +81,9 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><strong>GRootR</strong> processes Ground Penetrating Radar (GPR) root
-survey data through a pipeline that transforms raw CSV point data into
-spatial segments with geometric metrics, 2D/3D morphology estimates, and
+<p><strong>GRootR</strong> processes raw CSV data exported from GPR
+software through a pipeline that transforms point data into spatial
+segments with geometric metrics, 2D/3D morphology estimates, and
 inter-tree competition analysis.</p>
 <div class="float">
 <img src="../reference/figures/pipeline.svg" alt="GRootR Pipeline"><div class="figcaption">GRootR Pipeline</div>
@@ -89,43 +99,45 @@ inter-tree competition analysis.</p>
 <div class="section level2">
 <h2 id="step-1-load-and-prepare-data">Step 1: Load and prepare data<a class="anchor" aria-label="anchor" href="#step-1-load-and-prepare-data"></a>
 </h2>
-<p>The simplest approach uses <code><a href="../reference/prepare_root_data.html">prepare_root_data()</a></code>, which
-handles loading, cleaning, and coordinate conversion in one call:</p>
+<p>The simplest approach uses <code><a href="../reference/prepare_root_data.html">prepare_root_data()</a></code>. The
+defaults match the standard GPR export format — just point to your
+CSV:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/j-miszczyszyn/GRootR" class="external-link">GRootR</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_root_data.html">prepare_root_data</a></span><span class="op">(</span></span>
-<span>  path <span class="op">=</span> <span class="st">"path/to/roots.csv"</span>,</span>
-<span>  sep <span class="op">=</span> <span class="st">";"</span>,</span>
-<span>  x_col <span class="op">=</span> <span class="st">"X.SRS.units."</span>,</span>
-<span>  y_col <span class="op">=</span> <span class="st">"Y.SRS.units."</span>,</span>
-<span>  z_col <span class="op">=</span> <span class="st">"Depth.m."</span>,</span>
-<span>  negate_z <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  survey_col <span class="op">=</span> <span class="st">"Survey"</span>,</span>
-<span>  plot_position <span class="op">=</span> <span class="fl">4</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>This does three things internally:</p>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_root_data.html">prepare_root_data</a></span><span class="op">(</span><span class="st">"path/to/gpr_export.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>Or step by step:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_root_csv.html">load_root_csv</a></span><span class="op">(</span><span class="st">"gpr_export.csv"</span><span class="op">)</span>   <span class="co"># skips CRS header, fills N. -&gt; ROOT_ID</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/split_survey_column.html">split_survey_column</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>            <span class="co"># extracts plot ID from Survey column</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/convert_coordinates.html">convert_coordinates</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>            <span class="co"># X[SRS units] -&gt; X, Y, Z</span></span></code></pre></div>
+<p>What happens internally:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong><code><a href="../reference/load_root_csv.html">load_root_csv()</a></code></strong> — reads the CSV and
-fills missing <code>ROOT_ID</code> values using last observation carried
-forward</li>
+<strong><code><a href="../reference/load_root_csv.html">load_root_csv()</a></code></strong> — skips the CRS
+metadata header row, reads the CSV, and fills missing <code>N.</code>
+values (the root identifier only appears in the first row of each root —
+continuation rows are empty)</li>
 <li>
 <strong><code><a href="../reference/split_survey_column.html">split_survey_column()</a></code></strong> — extracts the
-plot identifier from a composite survey/filename column</li>
+plot identifier from the composite Survey string (e.g.,
+<code>"Survey_2024.10.29_001_A_converted"</code> -&gt;
+<code>"A"</code>)</li>
 <li>
-<strong><code><a href="../reference/convert_coordinates.html">convert_coordinates()</a></code></strong> — converts X, Y,
-Z columns to numeric; negates depth so below-surface = negative</li>
+<strong><code><a href="../reference/convert_coordinates.html">convert_coordinates()</a></code></strong> — converts
+<code>X[SRS units]</code>, <code>Y[SRS units]</code>,
+<code>Depth[m]</code> to numeric <code>X</code>, <code>Y</code>,
+<code>Z</code>; negates depth so below-surface = negative</li>
 </ol>
-<p>If your CSV has different column names, adjust the parameters
-accordingly.</p>
+<p>If your CSV uses different column names, adjust the parameters
+accordingly. See <code><a href="../articles/data-format.html">vignette("data-format")</a></code> for details.</p>
 </div>
 <div class="section level2">
 <h2 id="step-2-build-segments-with-metrics">Step 2: Build segments with metrics<a class="anchor" aria-label="anchor" href="#step-2-build-segments-with-metrics"></a>
 </h2>
 <p>Convert root node points into line segments and compute all geometric
 metrics:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_segments_with_metrics.html">build_segments_with_metrics</a></span><span class="op">(</span><span class="va">df</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span></code></pre></div>
 <p>This creates an <code>sf</code> object where each row is a line
 segment between two consecutive root nodes, with columns:</p>
@@ -133,13 +145,13 @@ segment between two consecutive root nodes, with columns:</p>
 <li>
 <code>length_3d</code> — 3D Euclidean distance (meters)</li>
 <li>
-<code>azimuth</code> — bearing from north, 0–360°</li>
+<code>azimuth</code> — bearing from north, 0-360 degrees</li>
 <li>
 <code>inclination_angle</code> — angle from horizontal plane
 (degrees)</li>
 <li>
-<code>slope_category</code> — classified as “horizontal”, “slight”,
-“moderate”, “steep”, or “vertical”</li>
+<code>slope_category</code> — “horizontal”, “slight”, “moderate”,
+“steep”, or “vertical”</li>
 <li>
 <code>orientation</code> — binary: “vertical” or “horizontal”</li>
 <li>
@@ -151,13 +163,12 @@ segment between two consecutive root nodes, with columns:</p>
 <div class="section level2">
 <h2 id="step-3-join-with-tree-locations">Step 3: Join with tree locations<a class="anchor" aria-label="anchor" href="#step-3-join-with-tree-locations"></a>
 </h2>
-<p>If you have a shapefile (or other spatial file) with tree stem
-positions:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>If you have a spatial file with tree stem positions:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
-<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="st">"trees.shp"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_zm.html" class="external-link">st_zm</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>                          <span class="co"># drop Z if present</span></span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Name</span>, <span class="va">geometry</span><span class="op">)</span>               <span class="co"># keep only ID + geometry</span></span>
+<span><span class="va">trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="st">"trees.shp"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_zm.html" class="external-link">st_zm</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Name</span>, <span class="va">geometry</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/join_nearest_tree.html">join_nearest_tree</a></span><span class="op">(</span><span class="va">segments</span>, <span class="va">trees</span>, tree_id_col <span class="op">=</span> <span class="st">"Name"</span>, max_dist <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
 <span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/propagate_tree_name.html">propagate_tree_name</a></span><span class="op">(</span><span class="va">joined</span>, tree_id_col <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span></span></code></pre></div>
@@ -170,71 +181,51 @@ was close enough to match.</p>
 <div class="section level2">
 <h2 id="step-4-root-and-tree-level-metrics">Step 4: Root and tree level metrics<a class="anchor" aria-label="anchor" href="#step-4-root-and-tree-level-metrics"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Total length per individual root</span></span>
-<span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_root_length.html">calc_root_length</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_root_length.html">calc_root_length</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span>           <span class="co"># total_length_root per ROOT_ID</span></span>
+<span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_tree_length.html">calc_tree_length</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span>           <span class="co"># total_length_tree per TREE_ID</span></span>
+<span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_depth_class.html">assign_depth_class</a></span><span class="op">(</span><span class="va">joined</span>, bin_m <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>  <span class="co"># 20 cm depth bins</span></span>
 <span></span>
-<span><span class="co"># Total length per tree (sum of all roots)</span></span>
-<span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_tree_length.html">calc_tree_length</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Classify into depth bins (20 cm default)</span></span>
-<span><span class="va">joined</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_depth_class.html">assign_depth_class</a></span><span class="op">(</span><span class="va">joined</span>, bin_m <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Per-tree depth statistics</span></span>
-<span><span class="va">depth_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_depth_stats.html">calc_depth_stats</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Count vertical vs horizontal segments per tree</span></span>
-<span><span class="va">orientations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/count_orientations.html">count_orientations</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">depth_stats</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_depth_stats.html">calc_depth_stats</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span>     <span class="co"># depth_max, depth_mean, depth_range</span></span>
+<span><span class="va">orientations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/count_orientations.html">count_orientations</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span>   <span class="co"># n_vertical, n_horizontal</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-5-2d-convex-hulls">Step 5: 2D convex hulls<a class="anchor" aria-label="anchor" href="#step-5-2d-convex-hulls"></a>
 </h2>
 <p>Build polygons representing the horizontal spread of each tree’s root
 system:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hulls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/build_convex_hulls.html">build_convex_hulls</a></span><span class="op">(</span><span class="va">joined</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span>
 <span><span class="va">hulls</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_hull_area.html">calc_hull_area</a></span><span class="op">(</span><span class="va">hulls</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Save as shapefile</span></span>
 <span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html" class="external-link">st_write</a></span><span class="op">(</span><span class="va">hulls</span>, <span class="st">"root_polygons_2D.shp"</span><span class="op">)</span></span></code></pre></div>
-<p>Each polygon has: <code>area_2d</code> (m²), <code>extent_x</code>
-and <code>extent_y</code> (bounding box dimensions).</p>
 </div>
 <div class="section level2">
 <h2 id="step-6-3d-volume-estimate">Step 6: 3D volume estimate<a class="anchor" aria-label="anchor" href="#step-6-3d-volume-estimate"></a>
 </h2>
-<p>Estimate the bounding volume as
-<code>vertical_range × area_2d</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">z_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_real_z.html">calc_real_z</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
 <span><span class="va">volume</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_range_3d.html">calc_range_3d</a></span><span class="op">(</span><span class="va">z_range</span>, <span class="va">hulls</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-7-overlap-competition-analysis">Step 7: Overlap / competition analysis<a class="anchor" aria-label="anchor" href="#step-7-overlap-competition-analysis"></a>
 </h2>
-<p>Calculate how much root systems of neighboring trees overlap:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">overlaps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_all_overlaps.html">calc_all_overlaps</a></span><span class="op">(</span><span class="va">hulls</span><span class="op">)</span></span></code></pre></div>
-<p>Returns a table with: <code>tree_1</code>, <code>tree_2</code>,
-<code>overlap_area</code> (m²), <code>overlap_pct_tree1</code>,
-<code>overlap_pct_tree2</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="step-8-root-to-trunk-distance">Step 8: Root-to-trunk distance<a class="anchor" aria-label="anchor" href="#step-8-root-to-trunk-distance"></a>
 </h2>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/merge_root_segments.html">merge_root_segments</a></span><span class="op">(</span><span class="va">joined_sf</span><span class="op">)</span></span>
 <span><span class="va">merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_dist_to_trunk.html">calc_dist_to_trunk</a></span><span class="op">(</span><span class="va">merged</span>, <span class="va">trees</span>, tree_id_col <span class="op">=</span> <span class="st">"Name"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="all-in-one-summary">All-in-one summary<a class="anchor" aria-label="anchor" href="#all-in-one-summary"></a>
 </h2>
-<p>For a quick tree-level summary combining depth, orientations, hulls,
-and volume:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/summarise_tree_roots.html">summarise_tree_roots</a></span><span class="op">(</span><span class="va">joined</span>, crs <span class="op">=</span> <span class="fl">2178</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Access components:</span></span>
 <span><span class="va">tree_summary</span><span class="op">$</span><span class="va">depth</span></span>
 <span><span class="va">tree_summary</span><span class="op">$</span><span class="va">orientations</span></span>
 <span><span class="va">tree_summary</span><span class="op">$</span><span class="va">hulls</span></span>
@@ -243,7 +234,7 @@ and volume:</p>
 <div class="section level2">
 <h2 id="exporting-results">Exporting results<a class="anchor" aria-label="anchor" href="#exporting-results"></a>
 </h2>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># To Excel (without geometry)</span></span>
 <span><span class="va">joined_df</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="va">joined</span><span class="op">)</span></span>
 <span><span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/write.xlsx.html" class="external-link">write.xlsx</a></span><span class="op">(</span><span class="va">joined_df</span>, <span class="st">"root_segments_database.xlsx"</span><span class="op">)</span></span>
@@ -261,7 +252,7 @@ and volume:</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jakub Miszczyszyn, Luiza Tyminska-Czabanska.</p>
+  <p>Developed by <a href="https://miszczyszyn.org" class="external-link">Jakub Miszczyszyn</a> &amp; <a href="https://orcid.org/0000-0002-4921-7070" class="external-link">Luiza Tymińska-Czabańska</a> at the Faculty of Forestry, University of Agriculture in Krakow. Funded by NCN (National Science Centre, Poland).</p>
 </div>
 
 <div class="pkgdown-footer-right">
