@@ -187,27 +187,27 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 <col width="50%">
 <col width="50%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/load_root_csv.html">load_root_csv()</a></code></td>
 <td>Load GPR export CSV, skip header, fill <code>N.</code> → <code>ROOT_ID</code>
 </td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/split_survey_column.html">split_survey_column()</a></code></td>
 <td>Extract plot ID from composite Survey string</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/convert_coordinates.html">convert_coordinates()</a></code></td>
 <td>
 <code>X[SRS units]</code> → <code>X</code>, <code>Y[SRS units]</code> → <code>Y</code>, <code>Depth[m]</code> → <code>Z</code>
 </td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/prepare_root_data.html">prepare_root_data()</a></code></td>
 <td>All-in-one loader</td>
 </tr>
@@ -218,24 +218,24 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 <h3 id="segment-creation">Segment creation<a class="anchor" aria-label="anchor" href="#segment-creation"></a>
 </h3>
 <table class="table">
-<thead><tr>
+<thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/points_to_sf.html">points_to_sf()</a></code></td>
 <td>Data frame → sf points (XYZ)</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/make_segments.html">make_segments()</a></code></td>
 <td>Consecutive points → line segments</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/process_single_root.html">process_single_root()</a></code></td>
 <td>Process one ROOT_ID</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/process_all_roots.html">process_all_roots()</a></code></td>
 <td>Process all ROOT_IDs</td>
 </tr>
@@ -246,28 +246,28 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 <h3 id="segment-metrics">Segment metrics<a class="anchor" aria-label="anchor" href="#segment-metrics"></a>
 </h3>
 <table class="table">
-<thead><tr>
+<thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/calc_segment_length.html">calc_segment_length()</a></code></td>
 <td>3D Euclidean length</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/calc_segment_azimuth.html">calc_segment_azimuth()</a></code></td>
 <td>Bearing 0–360°</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/calc_inclination.html">calc_inclination()</a></code></td>
 <td>Angle from horizontal</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/classify_slope.html">classify_slope()</a></code></td>
 <td>Slope category labels</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/calc_all_segment_metrics.html">calc_all_segment_metrics()</a></code></td>
 <td>All of the above</td>
 </tr>
@@ -282,16 +282,16 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 <col width="50%">
 <col width="50%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/join_nearest_tree.html">join_nearest_tree()</a></code></td>
 <td>Spatial join within distance</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/propagate_tree_name.html">propagate_tree_name()</a></code></td>
 <td>Propagate tree ID to all segments of same root</td>
 </tr>
@@ -302,28 +302,28 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 <h3 id="root--tree-metrics">Root / tree metrics<a class="anchor" aria-label="anchor" href="#root--tree-metrics"></a>
 </h3>
 <table class="table">
-<thead><tr>
+<thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/calc_root_length.html">calc_root_length()</a></code></td>
 <td>Total length per ROOT_ID</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/calc_tree_length.html">calc_tree_length()</a></code></td>
 <td>Total length per TREE_ID</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/assign_depth_class.html">assign_depth_class()</a></code></td>
 <td>Depth bin classification</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/calc_depth_stats.html">calc_depth_stats()</a></code></td>
 <td>Max/mean depth, range per tree</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/count_orientations.html">count_orientations()</a></code></td>
 <td>Vertical/horizontal segment counts</td>
 </tr>
@@ -334,24 +334,24 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 <h3 id="polygons--volume">Polygons &amp; volume<a class="anchor" aria-label="anchor" href="#polygons--volume"></a>
 </h3>
 <table class="table">
-<thead><tr>
+<thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/build_convex_hulls.html">build_convex_hulls()</a></code></td>
 <td>2D convex hull per tree</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/calc_hull_area.html">calc_hull_area()</a></code></td>
 <td>Area + X/Y extent</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/calc_real_z.html">calc_real_z()</a></code></td>
 <td>Vertical range per tree</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/calc_range_3d.html">calc_range_3d()</a></code></td>
 <td>3D bounding volume</td>
 </tr>
@@ -362,20 +362,20 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 <h3 id="overlap--distance">Overlap &amp; distance<a class="anchor" aria-label="anchor" href="#overlap--distance"></a>
 </h3>
 <table class="table">
-<thead><tr>
+<thead><tr class="header">
 <th>Function</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/calc_all_overlaps.html">calc_all_overlaps()</a></code></td>
 <td>Pairwise root system overlap</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code><a href="reference/merge_root_segments.html">merge_root_segments()</a></code></td>
 <td>Union segments per root</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code><a href="reference/calc_dist_to_trunk.html">calc_dist_to_trunk()</a></code></td>
 <td>Distance root → tree stem</td>
 </tr>

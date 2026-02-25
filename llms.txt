@@ -113,65 +113,65 @@ summary <- summarise_tree_roots(joined, crs = 2178)
 
 ### Loading & preparation
 
-| Function | Description |
-|----|----|
-| [`load_root_csv()`](https://j-miszczyszyn.github.io/GRootR/reference/load_root_csv.md) | Load GPR export CSV, skip header, fill `N.` → `ROOT_ID` |
-| [`split_survey_column()`](https://j-miszczyszyn.github.io/GRootR/reference/split_survey_column.md) | Extract plot ID from composite Survey string |
+| Function                                                                                           | Description                                                  |
+|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| [`load_root_csv()`](https://j-miszczyszyn.github.io/GRootR/reference/load_root_csv.md)             | Load GPR export CSV, skip header, fill `N.` → `ROOT_ID`      |
+| [`split_survey_column()`](https://j-miszczyszyn.github.io/GRootR/reference/split_survey_column.md) | Extract plot ID from composite Survey string                 |
 | [`convert_coordinates()`](https://j-miszczyszyn.github.io/GRootR/reference/convert_coordinates.md) | `X[SRS units]` → `X`, `Y[SRS units]` → `Y`, `Depth[m]` → `Z` |
-| [`prepare_root_data()`](https://j-miszczyszyn.github.io/GRootR/reference/prepare_root_data.md) | All-in-one loader |
+| [`prepare_root_data()`](https://j-miszczyszyn.github.io/GRootR/reference/prepare_root_data.md)     | All-in-one loader                                            |
 
 ### Segment creation
 
-| Function | Description |
-|----|----|
-| [`points_to_sf()`](https://j-miszczyszyn.github.io/GRootR/reference/points_to_sf.md) | Data frame → sf points (XYZ) |
-| [`make_segments()`](https://j-miszczyszyn.github.io/GRootR/reference/make_segments.md) | Consecutive points → line segments |
-| [`process_single_root()`](https://j-miszczyszyn.github.io/GRootR/reference/process_single_root.md) | Process one ROOT_ID |
-| [`process_all_roots()`](https://j-miszczyszyn.github.io/GRootR/reference/process_all_roots.md) | Process all ROOT_IDs |
+| Function                                                                                           | Description                        |
+|----------------------------------------------------------------------------------------------------|------------------------------------|
+| [`points_to_sf()`](https://j-miszczyszyn.github.io/GRootR/reference/points_to_sf.md)               | Data frame → sf points (XYZ)       |
+| [`make_segments()`](https://j-miszczyszyn.github.io/GRootR/reference/make_segments.md)             | Consecutive points → line segments |
+| [`process_single_root()`](https://j-miszczyszyn.github.io/GRootR/reference/process_single_root.md) | Process one ROOT_ID                |
+| [`process_all_roots()`](https://j-miszczyszyn.github.io/GRootR/reference/process_all_roots.md)     | Process all ROOT_IDs               |
 
 ### Segment metrics
 
-| Function | Description |
-|----|----|
-| [`calc_segment_length()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_segment_length.md) | 3D Euclidean length |
-| [`calc_segment_azimuth()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_segment_azimuth.md) | Bearing 0–360° |
-| [`calc_inclination()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_inclination.md) | Angle from horizontal |
-| [`classify_slope()`](https://j-miszczyszyn.github.io/GRootR/reference/classify_slope.md) | Slope category labels |
-| [`calc_all_segment_metrics()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_all_segment_metrics.md) | All of the above |
+| Function                                                                                                     | Description           |
+|--------------------------------------------------------------------------------------------------------------|-----------------------|
+| [`calc_segment_length()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_segment_length.md)           | 3D Euclidean length   |
+| [`calc_segment_azimuth()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_segment_azimuth.md)         | Bearing 0–360°        |
+| [`calc_inclination()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_inclination.md)                 | Angle from horizontal |
+| [`classify_slope()`](https://j-miszczyszyn.github.io/GRootR/reference/classify_slope.md)                     | Slope category labels |
+| [`calc_all_segment_metrics()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_all_segment_metrics.md) | All of the above      |
 
 ### Tree joining
 
-| Function | Description |
-|----|----|
-| [`join_nearest_tree()`](https://j-miszczyszyn.github.io/GRootR/reference/join_nearest_tree.md) | Spatial join within distance |
+| Function                                                                                           | Description                                    |
+|----------------------------------------------------------------------------------------------------|------------------------------------------------|
+| [`join_nearest_tree()`](https://j-miszczyszyn.github.io/GRootR/reference/join_nearest_tree.md)     | Spatial join within distance                   |
 | [`propagate_tree_name()`](https://j-miszczyszyn.github.io/GRootR/reference/propagate_tree_name.md) | Propagate tree ID to all segments of same root |
 
 ### Root / tree metrics
 
-| Function | Description |
-|----|----|
-| [`calc_root_length()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_root_length.md) | Total length per ROOT_ID |
-| [`calc_tree_length()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_tree_length.md) | Total length per TREE_ID |
-| [`assign_depth_class()`](https://j-miszczyszyn.github.io/GRootR/reference/assign_depth_class.md) | Depth bin classification |
-| [`calc_depth_stats()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_depth_stats.md) | Max/mean depth, range per tree |
+| Function                                                                                         | Description                        |
+|--------------------------------------------------------------------------------------------------|------------------------------------|
+| [`calc_root_length()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_root_length.md)     | Total length per ROOT_ID           |
+| [`calc_tree_length()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_tree_length.md)     | Total length per TREE_ID           |
+| [`assign_depth_class()`](https://j-miszczyszyn.github.io/GRootR/reference/assign_depth_class.md) | Depth bin classification           |
+| [`calc_depth_stats()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_depth_stats.md)     | Max/mean depth, range per tree     |
 | [`count_orientations()`](https://j-miszczyszyn.github.io/GRootR/reference/count_orientations.md) | Vertical/horizontal segment counts |
 
 ### Polygons & volume
 
-| Function | Description |
-|----|----|
+| Function                                                                                         | Description             |
+|--------------------------------------------------------------------------------------------------|-------------------------|
 | [`build_convex_hulls()`](https://j-miszczyszyn.github.io/GRootR/reference/build_convex_hulls.md) | 2D convex hull per tree |
-| [`calc_hull_area()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_hull_area.md) | Area + X/Y extent |
-| [`calc_real_z()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_real_z.md) | Vertical range per tree |
-| [`calc_range_3d()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_range_3d.md) | 3D bounding volume |
+| [`calc_hull_area()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_hull_area.md)         | Area + X/Y extent       |
+| [`calc_real_z()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_real_z.md)               | Vertical range per tree |
+| [`calc_range_3d()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_range_3d.md)           | 3D bounding volume      |
 
 ### Overlap & distance
 
-| Function | Description |
-|----|----|
-| [`calc_all_overlaps()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_all_overlaps.md) | Pairwise root system overlap |
-| [`merge_root_segments()`](https://j-miszczyszyn.github.io/GRootR/reference/merge_root_segments.md) | Union segments per root |
-| [`calc_dist_to_trunk()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_dist_to_trunk.md) | Distance root → tree stem |
+| Function                                                                                           | Description                  |
+|----------------------------------------------------------------------------------------------------|------------------------------|
+| [`calc_all_overlaps()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_all_overlaps.md)     | Pairwise root system overlap |
+| [`merge_root_segments()`](https://j-miszczyszyn.github.io/GRootR/reference/merge_root_segments.md) | Union segments per root      |
+| [`calc_dist_to_trunk()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_dist_to_trunk.md)   | Distance root → tree stem    |
 
 ## Acknowledgments
 

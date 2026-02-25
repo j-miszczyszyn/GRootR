@@ -24,27 +24,27 @@ A typical export looks like this:
 
 **Rows 3+** — Data. Each detected root is a group of consecutive rows:
 
-| Column | Present in | Description |
-|----|----|----|
-| `N.` | First node only | Root identifier (integer). Empty for continuation rows — filled forward by GRootR. |
-| `Type` | First node only | Object type (e.g., “Pipe”). |
-| `Name` | First node only | Feature name from GPR software (e.g., “Feature 0010”). |
-| `Category` | First node only | Category label (e.g., “Generic”). |
-| `Colour[r,g,b]` | First node only | Display colour. |
-| `Diameter/Height[m]` | First node only | Estimated diameter. |
-| `Min/Avg/Max Depth[m]` | First node only | Depth summary for entire root. |
-| `Min/Avg/Max Altitude[m]` | First node only | Altitude summary. |
-| `Node` | Every row | Node label: `node1`, `node2`, etc. |
-| `X[SRS units]` | Every row | X coordinate in the projected CRS. |
-| `Y[SRS units]` | Every row | Y coordinate in the projected CRS. |
-| `Depth[m]` | Every row | Depth below surface (positive = underground). |
-| `Altitude[m]` | Every row | Altitude (negative of depth). |
-| `Survey` | Every row | Composite scan identifier. |
-| `Swath` | Every row | Swath/scan line name. |
-| `Array` | Every row | Antenna array configuration. |
-| `Channel` | Every row | GPR channel number. |
-| `Propagation Velocity[cm/ns]` | Every row | Wave velocity. |
-| `Cross Distance[m]` | Every row | Cross-line distance. |
+| Column                        | Present in      | Description                                                                        |
+|-------------------------------|-----------------|------------------------------------------------------------------------------------|
+| `N.`                          | First node only | Root identifier (integer). Empty for continuation rows — filled forward by GRootR. |
+| `Type`                        | First node only | Object type (e.g., “Pipe”).                                                        |
+| `Name`                        | First node only | Feature name from GPR software (e.g., “Feature 0010”).                             |
+| `Category`                    | First node only | Category label (e.g., “Generic”).                                                  |
+| `Colour[r,g,b]`               | First node only | Display colour.                                                                    |
+| `Diameter/Height[m]`          | First node only | Estimated diameter.                                                                |
+| `Min/Avg/Max Depth[m]`        | First node only | Depth summary for entire root.                                                     |
+| `Min/Avg/Max Altitude[m]`     | First node only | Altitude summary.                                                                  |
+| `Node`                        | Every row       | Node label: `node1`, `node2`, etc.                                                 |
+| `X[SRS units]`                | Every row       | X coordinate in the projected CRS.                                                 |
+| `Y[SRS units]`                | Every row       | Y coordinate in the projected CRS.                                                 |
+| `Depth[m]`                    | Every row       | Depth below surface (positive = underground).                                      |
+| `Altitude[m]`                 | Every row       | Altitude (negative of depth).                                                      |
+| `Survey`                      | Every row       | Composite scan identifier.                                                         |
+| `Swath`                       | Every row       | Swath/scan line name.                                                              |
+| `Array`                       | Every row       | Antenna array configuration.                                                       |
+| `Channel`                     | Every row       | GPR channel number.                                                                |
+| `Propagation Velocity[cm/ns]` | Every row       | Wave velocity.                                                                     |
+| `Cross Distance[m]`           | Every row       | Cross-line distance.                                                               |
 
 The critical columns for GRootR are: **`N.`**, **`Node`**,
 **`X[SRS units]`**, **`Y[SRS units]`**, **`Depth[m]`**, and optionally

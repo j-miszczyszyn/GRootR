@@ -18,9 +18,7 @@ Each segment is defined by a start point (`pX, pY, pZ`) and an end point
 
 Euclidean distance in 3D space between start and end points:
 
-``` math
-\text{length\_3d} = \sqrt{(\Delta X)^2 + (\Delta Y)^2 + (\Delta Z)^2}
-```
+$$\text{length\_3d} = \sqrt{(\Delta X)^{2} + (\Delta Y)^{2} + (\Delta Z)^{2}}$$
 
 Computed by
 [`calc_segment_length()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_segment_length.md).
@@ -31,9 +29,7 @@ Units follow the CRS (typically meters).
 Horizontal bearing from the start point to the end point, measured
 clockwise from north (0°–360°):
 
-``` math
-\text{azimuth} = \text{atan2}(\Delta X, \Delta Y) \cdot \frac{180}{\pi} \mod 360
-```
+$$\text{azimuth} = \text{atan2}(\Delta X,\Delta Y) \cdot \frac{180}{\pi}{\mspace{8mu}\operatorname{mod}\ 360}$$
 
 Computed by
 [`calc_segment_azimuth()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_segment_azimuth.md).
@@ -55,9 +51,7 @@ toward water sources, away from competing trees).
 
 Angle of the segment relative to the horizontal plane, in degrees:
 
-``` math
-\text{inclination} = \text{atan}\left(\frac{\Delta Z}{\sqrt{\Delta X^2 + \Delta Y^2}}\right) \cdot \frac{180}{\pi}
-```
+$$\text{inclination} = \text{atan}\left( \frac{\Delta Z}{\sqrt{\Delta X^{2} + \Delta Y^{2}}} \right) \cdot \frac{180}{\pi}$$
 
 Computed by
 [`calc_inclination()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_inclination.md).
