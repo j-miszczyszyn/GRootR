@@ -178,13 +178,13 @@ summary <- summarise_tree_roots(joined, crs = 2178)
 | `merge_root_segments()` | Union segments per root |
 | `calc_dist_to_trunk()` | Distance root → tree stem |
 
-## Citation
+## Related publications
 
-If you use GRootR in your research, please cite:
+The methodology implemented in GRootR was developed during research on root system variability in Scots pine forests using multichannel ground-penetrating radar. The following publication presents the scientific background and first results obtained with the approach used in this package:
 
 > Tymińska-Czabańska, L., Polak, M., Miszczyszyn, J., Dąbrowski, M., & Socha, J. (2025). First application of multichannel GPR for root system variability analysis in Scots pine forests. *Ecological Indicators*, 179, 114282. [doi:10.1016/j.ecolind.2025.114282](https://doi.org/10.1016/j.ecolind.2025.114282)
 
-Or in R:
+If you use GRootR in your work, please cite both the article and the package:
 ```r
 citation("GRootR")
 ```
