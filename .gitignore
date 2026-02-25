@@ -1,4 +1,8 @@
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
 docs
-
 Work_files/
+inst/doc
