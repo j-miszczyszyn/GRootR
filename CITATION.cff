@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+title: "GRootR: 3D Visualization and Statistical Analysis of Tree Roots Detected with Ground Penetrating Radar"
+message: "If you use this software, please cite the article from preferred-citation."
+type: software
+authors:
+  - family-names: Miszczyszyn
+    given-names: Jakub
+    orcid: "https://orcid.org/0009-0002-8592-946X"
+    affiliation: "University of Agriculture in Krakow, Faculty of Forestry"
+  - family-names: "Tymińska-Czabańska"
+    given-names: Luiza
+    orcid: "https://orcid.org/0000-0002-4921-7070"
+    affiliation: "University of Agriculture in Krakow, Faculty of Forestry"
+repository-code: "https://github.com/j-miszczyszyn/GRootR"
+url: "https://j-miszczyszyn.github.io/GRootR/"
+license: GPL-3.0
+version: 0.1.0
+date-released: "2025-02-25"
+keywords:
+  - ground-penetrating-radar
+  - root-system-architecture
+  - forestry
+  - geospatial
+  - R-package
+preferred-citation:
+  type: article
+  title: "First application of multichannel GPR for root system variability analysis in Scots pine forests"
+  authors:
+    - family-names: "Tymińska-Czabańska"
+      given-names: Luiza
+      orcid: "https://orcid.org/0000-0002-4921-7070"
+    - family-names: Polak
+      given-names: Marcin
+    - family-names: Miszczyszyn
+      given-names: Jakub
+      orcid: "https://orcid.org/0009-0002-8592-946X"
+    - family-names: "Dąbrowski"
+      given-names: "Michał"
+    - family-names: Socha
+      given-names: "Jarosław"
+  journal: "Ecological Indicators"
+  volume: 179
+  start: 114282
+  year: 2025
+  issn: "1470-160X"
+  doi: "10.1016/j.ecolind.2025.114282"
+  url: "https://www.sciencedirect.com/science/article/pii/S1470160X25012142"
