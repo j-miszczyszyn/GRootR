@@ -17,12 +17,28 @@
 Source:
 [`inst/CITATION`](https://github.com/j-miszczyszyn/GRootR/blob/main/inst/CITATION)
 
-Miszczyszyn J, Tymińska-Czabańska L (2025). *GRootR: 3D Visualization
-and Statistical Analysis of Tree Roots Detected with Ground Penetrating
-Radar*. R package version 0.1.0,
-<https://github.com/j-miszczyszyn/GRootR>.
+Tymińska-Czabańska, L., Polak, M., Miszczyszyn, J., Dąbrowski, M., &
+Socha, J. (2025). First application of multichannel GPR for root system
+variability analysis in Scots pine forests. Ecological Indicators, 179,
+114282. https://doi.org/10.1016/j.ecolind.2025.114282
 
-    @Manual{,
+    @Article{tyminska2025gpr,
+      title = {First application of multichannel GPR for root system variability analysis in Scots pine forests},
+      author = {Luiza Tymińska-Czabańska and Marcin Polak and Jakub Miszczyszyn and Michał Dąbrowski and Jarosław Socha},
+      journal = {Ecological Indicators},
+      year = {2025},
+      volume = {179},
+      pages = {114282},
+      doi = {10.1016/j.ecolind.2025.114282},
+      url = {https://www.sciencedirect.com/science/article/pii/S1470160X25012142},
+    }
+
+Miszczyszyn, J. & Tymińska-Czabańska, L. (2025). GRootR: 3D
+Visualization and Statistical Analysis of Tree Roots Detected with
+Ground Penetrating Radar. R package version 0.1.0.
+https://github.com/j-miszczyszyn/GRootR
+
+    @Manual{GRootR,
       title = {GRootR: 3D Visualization and Statistical Analysis of Tree Roots Detected with Ground Penetrating Radar},
       author = {Jakub Miszczyszyn and Luiza Tymińska-Czabańska},
       year = {2025},

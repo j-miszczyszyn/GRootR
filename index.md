@@ -27,12 +27,14 @@ pak::pak("j-miszczyszyn/GRootR")
 GRootR reads CSV files directly exported from GPR processing software
 (e.g., ImpulseRadar, REFLEXW, GPR-SLICE). A typical file looks like:
 
-    Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,,,...
-    N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
-    1,Pipe,Feature 0010,Generic,...,node1,7394244.316,5578579.578,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
-    ,,,,,...,node2,7394245.057,5578579.786,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
-    ,,,,,...,node3,7394245.455,5578580.134,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
-    2,Pipe,Feature 0011,Generic,...,node1,7394244.185,5578580.438,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+``` R
+Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,,,...
+N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
+1,Pipe,Feature 0010,Generic,...,node1,7394244.316,5578579.578,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+,,,,,...,node2,7394245.057,5578579.786,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+,,,,,...,node3,7394245.455,5578580.134,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+2,Pipe,Feature 0011,Generic,...,node1,7394244.185,5578580.438,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
+```
 
 Key points:
 
@@ -172,6 +174,22 @@ summary <- summarise_tree_roots(joined, crs = 2178)
 | [`calc_all_overlaps()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_all_overlaps.md)     | Pairwise root system overlap |
 | [`merge_root_segments()`](https://j-miszczyszyn.github.io/GRootR/reference/merge_root_segments.md) | Union segments per root      |
 | [`calc_dist_to_trunk()`](https://j-miszczyszyn.github.io/GRootR/reference/calc_dist_to_trunk.md)   | Distance root → tree stem    |
+
+## Citation
+
+If you use GRootR in your research, please cite:
+
+> Tymińska-Czabańska, L., Polak, M., Miszczyszyn, J., Dąbrowski, M., &
+> Socha, J. (2025). First application of multichannel GPR for root
+> system variability analysis in Scots pine forests. *Ecological
+> Indicators*, 179, 114282.
+> [doi:10.1016/j.ecolind.2025.114282](https://doi.org/10.1016/j.ecolind.2025.114282)
+
+Or in R:
+
+``` r
+citation("GRootR")
+```
 
 ## Acknowledgments
 

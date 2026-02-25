@@ -81,9 +81,9 @@
 </h2>
 <p><strong>GRootR</strong> processes raw CSV data exported from GPR (Ground Penetrating Radar) software into spatial root segments, computes geometric and morphological metrics, and enables inter-tree root competition analysis.</p>
 <p>Developed as part of the NCN-funded project: <strong>“Zastosowanie georadaru ze skanerem 3D do pomiarów zmienności systemów korzeniowych sosny zwyczajnej”</strong> (<strong>“Application of Ground-Penetrating Radar with 3D Scanner for Measuring Variability in Scots Pine Root Systems”</strong>)</p>
-<div class="float">
-<img src="reference/figures/pipeline.svg" alt="GRootR Pipeline"><div class="figcaption">GRootR Pipeline</div>
-</div>
+<figure><img src="reference/figures/pipeline.svg" alt="GRootR Pipeline"><figcaption aria-hidden="true">
+GRootR Pipeline
+</figcaption></figure>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -96,12 +96,12 @@
 <h2 id="input-data-format">Input data format<a class="anchor" aria-label="anchor" href="#input-data-format"></a>
 </h2>
 <p>GRootR reads CSV files directly exported from GPR processing software (e.g., ImpulseRadar, REFLEXW, GPR-SLICE). A typical file looks like:</p>
-<pre><code>Spatial Reference System:,EPSG:2178,ETRS89 / Poland CS2000 zone 7,,,...
-N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
-1,Pipe,Feature 0010,Generic,...,node1,7394244.316,5578579.578,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
-,,,,,...,node2,7394245.057,5578579.786,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
-,,,,,...,node3,7394245.455,5578580.134,0.202,-0.202,Survey_2024.10.29_001_A_converted,...
-2,Pipe,Feature 0011,Generic,...,node1,7394244.185,5578580.438,0.202,-0.202,Survey_2024.10.29_001_A_converted,...</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>Spatial Reference System<span class="sc">:</span>,EPSG<span class="sc">:</span><span class="dv">2178</span>,ETRS89 <span class="sc">/</span> Poland CS2000 zone <span class="dv">7</span>,,,...</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="dv">1</span>,Pipe,Feature <span class="dv">0010</span>,Generic,...,node1,<span class="fl">7394244.316</span>,<span class="fl">5578579.578</span>,<span class="fl">0.202</span>,<span class="sc">-</span><span class="fl">0.202</span>,Survey_2024.<span class="fl">10.29</span>_001_A_converted,...</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>,,,,,...,node2,<span class="fl">7394245.057</span>,<span class="fl">5578579.786</span>,<span class="fl">0.202</span>,<span class="sc">-</span><span class="fl">0.202</span>,Survey_2024.<span class="fl">10.29</span>_001_A_converted,...</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>,,,,,...,node3,<span class="fl">7394245.455</span>,<span class="fl">5578580.134</span>,<span class="fl">0.202</span>,<span class="sc">-</span><span class="fl">0.202</span>,Survey_2024.<span class="fl">10.29</span>_001_A_converted,...</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="dv">2</span>,Pipe,Feature <span class="dv">0011</span>,Generic,...,node1,<span class="fl">7394244.185</span>,<span class="fl">5578580.438</span>,<span class="fl">0.202</span>,<span class="sc">-</span><span class="fl">0.202</span>,Survey_2024.<span class="fl">10.29</span>_001_A_converted,...</span></code></pre></div>
 <p>Key points:</p>
 <ul>
 <li>
@@ -279,8 +279,8 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 </h3>
 <table class="table">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col width="34%">
+<col width="65%">
 </colgroup>
 <thead><tr class="header">
 <th>Function</th>
@@ -382,6 +382,17 @@ N.,Type,Name,Category,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Su
 </tbody>
 </table>
 </div>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>If you use GRootR in your research, please cite:</p>
+<blockquote>
+<p>Tymińska-Czabańska, L., Polak, M., Miszczyszyn, J., Dąbrowski, M., &amp; Socha, J. (2025). First application of multichannel GPR for root system variability analysis in Scots pine forests. <em>Ecological Indicators</em>, 179, 114282. <a href="https://doi.org/10.1016/j.ecolind.2025.114282" class="external-link">doi:10.1016/j.ecolind.2025.114282</a></p>
+</blockquote>
+<p>Or in R:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"GRootR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
