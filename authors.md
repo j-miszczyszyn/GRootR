@@ -15,7 +15,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/j-miszczyszyn/GRootR/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/j-miszczyszyn/GRootR/blob/HEAD/inst/CITATION)
 
 Miszczyszyn J, Tymińska-Czabańska L (2025). *GRootR: 3D Visualization
 and Statistical Analysis of Tree Roots Detected with Ground Penetrating
