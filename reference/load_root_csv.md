@@ -60,3 +60,6 @@ A typical GPR export CSV looks like:
 The first row contains CRS metadata (skipped via `skip`). The `N.`
 column identifies each root but is only populated in the first node row
 — continuation rows are empty/NA.
+
+Note: GPR exports often have a trailing comma on data rows, which is
+handled automatically.
