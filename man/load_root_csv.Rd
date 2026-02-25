@@ -47,7 +47,10 @@ N.,Type,Name,...,Node,X[SRS units],Y[SRS units],Depth[m],Altitude[m],Survey,...
 }
 
 The first row contains CRS metadata (skipped via \code{skip}). The \code{N.} column
-identifies each root but is only populated in the first node row —
+identifies each root but is only populated in the first node row ---
 continuation rows are empty/NA.
+
+Note: GPR exports often have a trailing comma on data rows, which is
+handled automatically.
 }
 

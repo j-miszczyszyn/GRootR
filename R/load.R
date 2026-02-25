@@ -25,8 +25,11 @@ NULL
 #' }
 #'
 #' The first row contains CRS metadata (skipped via `skip`). The `N.` column
-#' identifies each root but is only populated in the first node row —
+#' identifies each root but is only populated in the first node row ---
 #' continuation rows are empty/NA.
+#'
+#' Note: GPR exports often have a trailing comma on data rows, which is
+#' handled automatically.
 #'
 #' @param path Path to CSV file.
 #' @param sep Column separator. Default `","`.
@@ -40,7 +43,18 @@ NULL
 load_root_csv <- function(path, sep = ",", skip = 1,
                           root_id_col = "N.",
                           root_id_name = "ROOT_ID") {
-  df <- utils::read.csv(path, sep = sep, skip = skip,
+
+  # Read raw lines, strip trailing commas and carriage returns
+  lines <- readLines(path, warn = FALSE)
+  lines <- sub("\\r$", "", lines)     # strip CR (Windows line endings)
+  lines <- sub(",+$", "", lines)      # strip trailing comma(s)
+
+  # Skip header rows
+  if (skip > 0 && length(lines) > skip) {
+    lines <- lines[(skip + 1):length(lines)]
+  }
+
+  df <- utils::read.csv(text = paste(lines, collapse = "\n"),
                         stringsAsFactors = FALSE,
                         check.names = FALSE)
 
